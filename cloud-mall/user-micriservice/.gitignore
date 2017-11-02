@@ -15,7 +15,8 @@
 *.iws
 *.iml
 *.ipr
-
+*.out
+*.gradle
 ### NetBeans ###
 nbproject/private/
 build/
