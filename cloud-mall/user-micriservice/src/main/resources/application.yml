@@ -3,7 +3,26 @@ server:
 spring:
   application:
     name: user-micriservice
+  datasource:
+    name: datasource
+    url: jdbc:mysql://localhost:3306/cloud_mall?serverTimezone=UTC
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      filters: stat
+      max-active: 20
+      min-idle: 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 'x'
+      test-while-idle: true
+      test-on-return: false
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
 eureka:
   client:
     service-url:
       defaultZone : http://localhost:8000/eureka
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
