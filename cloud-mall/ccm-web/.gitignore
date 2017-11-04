@@ -28,3 +28,4 @@ nbdist/
 /.gradle/
 /out/
 /gradle/
+!/build.gradle
