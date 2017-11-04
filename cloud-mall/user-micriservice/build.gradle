@@ -37,6 +37,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('mysql:mysql-connector-java:6.0.2')
     compile('com.alibaba:druid-spring-boot-starter:1.1.4')
+    compile('org.springframework.boot:spring-boot-starter-redis:1.4.7.RELEASE')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

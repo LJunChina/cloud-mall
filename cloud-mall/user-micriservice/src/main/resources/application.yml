@@ -20,6 +20,17 @@ spring:
       test-on-return: false
       pool-prepared-statements: true
       max-open-prepared-statements: 20
+  redis:
+    database: 0
+    host: 192.168.8.88
+    port: 6379
+    password: 123456
+    pool:
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      min-idle: 0
+    timeout: 0
 eureka:
   client:
     service-url:
