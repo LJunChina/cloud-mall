@@ -2,7 +2,9 @@ package com.cloud.mall.usermicriservice.enums;
 
 public enum ResultCode {
     OK("0000","处理成功"),
-    FAIL("9000","处理失败");
+    FAIL("9000","处理失败"),
+    USER_NAME_NOT_ALLOW_EMPTY("9010","用户名称不能为空"),
+    PASSWORD_NOT_ALLOW_EMPTY("9011","登录密码不能为空");
 
 
     private String code;

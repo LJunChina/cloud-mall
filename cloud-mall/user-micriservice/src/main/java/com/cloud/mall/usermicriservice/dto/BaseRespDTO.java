@@ -1,6 +1,9 @@
 package com.cloud.mall.usermicriservice.dto;
 
 import com.cloud.mall.usermicriservice.enums.ResultCode;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.Serializable;
 
@@ -15,12 +18,16 @@ public class BaseRespDTO implements Serializable {
 
 
     public BaseRespDTO() {
-        this.code = ResultCode.OK.getCode();
+        this(ResultCode.OK);
     }
 
     public BaseRespDTO(String code, String message) {
         this.code = code;
         this.message = message;
+    }
+    public BaseRespDTO(ResultCode resultCode){
+        this.code = resultCode.getCode();
+        this.message = resultCode.getMessage();
     }
 
     public Serializable getData() {
@@ -45,5 +52,15 @@ public class BaseRespDTO implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public String toString(){
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            return StringUtils.EMPTY;
+        }
     }
 }
