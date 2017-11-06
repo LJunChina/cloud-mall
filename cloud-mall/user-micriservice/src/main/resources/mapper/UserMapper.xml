@@ -1,16 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cloud.mall.usermicriservice.dao.UserDao">
-    <sql id="userColumns">
-        id,
-        name
+<mapper namespace="com.cloud.mall.usermicriservice.dao.IUserDao">
+    <resultMap id="BaseResultMap" type="com.cloud.mall.usermicriservice.model.User">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="orgid" jdbcType="VARCHAR" property="orgid" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+        <result column="is_admin" jdbcType="VARCHAR" property="isAdmin" />
+        <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,username,password,name,sex,status,orgid,email,idcard,is_admin,mobile
     </sql>
+    <select id="getUserInfo" parameterType="com.cloud.mall.usermicriservice.model.User" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from user where 1 = 1
+        <if test="username != null and username != ''">
+            and username = #{username,jdbcType=VARCHAR}
+        </if>
+        <if test="password != null and password != ''">
+            and password = #{password,jdbcType=VARCHAR}
+        </if>
+        <if test="id != null and id != ''">
+            and id = #{id,jdbcType=VARCHAR}
+        </if>
+    </select>
     <insert id="saveUser" parameterType="com.cloud.mall.usermicriservice.model.User">
-        insert into user (
-        id, name
-        ) values (
-        #{id},
-        #{name}
-        )
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="orgid != null">
+                orgid,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="idcard != null">
+                idcard,
+            </if>
+            <if test="isAdmin != null">
+                is_admin,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id,jdbcType=VARCHAR},
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="orgid != null">
+                #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="idcard != null">
+                #{idcard,jdbcType=VARCHAR},
+            </if>
+            <if test="isAdmin != null">
+                #{isAdmin,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+        </trim>
     </insert>
+    <update id="updateUserById" parameterType="com.cloud.mall.usermicriservice.model.User">
+        update user set
+        username = #{username,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
+        sex = #{sex,jdbcType=VARCHAR},
+        status = #{status,jdbcType=VARCHAR},
+        orgid = #{orgid,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
+        idcard = #{idcard,jdbcType=VARCHAR},
+        is_admin = #{isAdmin,jdbcType=VARCHAR},
+        mobile = #{mobile,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
 </mapper>

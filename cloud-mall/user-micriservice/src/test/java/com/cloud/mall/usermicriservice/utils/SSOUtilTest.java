@@ -11,6 +11,6 @@ public class SSOUtilTest {
         System.out.println((int) 'A');
         System.out.println((int) 'Z');
         System.out.println(SSOUtil.generatorTokenId());
-        System.out.println(UUID.randomUUID().toString().toUpperCase().repla);
+        //System.out.println(UUID.randomUUID().toString().toUpperCase().repla);
     }
 }
