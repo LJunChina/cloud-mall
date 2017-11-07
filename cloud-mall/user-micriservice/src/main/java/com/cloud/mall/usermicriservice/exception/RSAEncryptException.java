@@ -1,4 +1,4 @@
-package com.cloud.mall.usermicriservice.Exception;
+package com.cloud.mall.usermicriservice.exception;
 
 public class RSAEncryptException extends RuntimeException {
 

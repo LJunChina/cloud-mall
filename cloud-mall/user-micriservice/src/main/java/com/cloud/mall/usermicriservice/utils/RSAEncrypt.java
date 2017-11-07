@@ -1,6 +1,6 @@
 package com.cloud.mall.usermicriservice.utils;
 
-import com.cloud.mall.usermicriservice.Exception.RSAEncryptException;
+import com.cloud.mall.usermicriservice.exception.RSAEncryptException;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,33 +104,6 @@ public class RSAEncrypt {
         }
     }
 
-
-    /**
-     * 从文件中输入流中加载公钥
-     *
-     * @param path
-     *            公钥输入流
-     * @throws Exception
-     *             加载公钥时产生的异常
-     */
-    public static String loadPublicKeyByFile(String path) throws Exception {
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(path
-                    + "/publicKey.keystore"));
-            String readLine = null;
-            StringBuilder sb = new StringBuilder();
-            while ((readLine = br.readLine()) != null) {
-                sb.append(readLine);
-            }
-            br.close();
-            return sb.toString();
-        } catch (IOException e) {
-            throw new Exception("公钥数据流读取错误");
-        } catch (NullPointerException e) {
-            throw new Exception("公钥输入流为空");
-        }
-    }
-
     /**
      * 从字符串中加载公钥
      *
@@ -163,10 +136,9 @@ public class RSAEncrypt {
      * @return 是否成功
      * @throws Exception
      */
-    public static String loadPrivateKeyByFile(String path) throws Exception {
+    public static String loadKeyByFile(String path) throws Exception {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(path
-                    + "/privateKey.keystore"));
+            BufferedReader br = new BufferedReader(new FileReader(path));
             String readLine;
             StringBuilder sb = new StringBuilder();
             while ((readLine = br.readLine()) != null) {
@@ -175,9 +147,9 @@ public class RSAEncrypt {
             br.close();
             return sb.toString();
         } catch (IOException e) {
-            throw new Exception("私钥数据读取错误");
+            throw new Exception("密钥数据读取错误");
         } catch (NullPointerException e) {
-            throw new Exception("私钥输入流为空");
+            throw new Exception("密钥输入流为空");
         }
     }
 

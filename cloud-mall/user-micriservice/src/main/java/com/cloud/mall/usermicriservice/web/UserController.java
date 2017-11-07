@@ -22,11 +22,23 @@ public class UserController {
         logger.info("the params for login userName:{},password:{}",userName,password);
         try {
             BaseRespDTO result = this.userService.userLogin(userName,password);
-            logger.info("the result of user login is {}",result.toString());
+            logger.info("the result of user login is :{}",result.toString());
             return result.toString();
         }catch (Exception e){
             logger.error("exception occurred in login",e);
-            return new BaseRespDTO(ResultCode.FAIL).toString();
+            return new BaseRespDTO(ResultCode.ERROR).toString();
+        }
+    }
+
+    @GetMapping(value = "/get-public-key")
+    public String getPublicKey(){
+        try {
+            BaseRespDTO result = this.userService.getPublicKey();
+            logger.info("this result of getPublicKey is :{}",result.toString());
+            return result.toString();
+        }catch (Exception e){
+            logger.error("exception occurred in getPublicKey",e);
+            return new BaseRespDTO(ResultCode.ERROR).toString();
         }
     }
 }

@@ -10,4 +10,11 @@ public interface UserService {
      * @return
      */
     BaseRespDTO userLogin(String userName,String password);
+
+    /**
+     * 获取公钥信息
+     * @return
+     * @throws Exception
+     */
+    BaseRespDTO getPublicKey() throws Exception;
 }
