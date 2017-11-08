@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/login")
+    @PostMapping(value = "/login")
     public String login(@RequestParam(name = "userName")String userName, @RequestParam(name = "password")String password){
         logger.info("the params for login userName:{},password:{}",userName,password);
         try {

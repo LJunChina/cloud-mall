@@ -19,6 +19,8 @@ import java.security.spec.X509EncodedKeySpec;
 
 public class RSAEncrypt {
 
+    private static final int MAX_ENCRYPT_BLOCK = 128;
+
     private RSAEncrypt(){}
     /**
      * 字节数据转字符串专用集合
@@ -266,8 +268,25 @@ public class RSAEncrypt {
             cipher = Cipher.getInstance("RSA");
             // cipher= Cipher.getInstance("RSA", new BouncyCastleProvider());
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
-            byte[] output = cipher.doFinal(cipherData);
-            return output;
+            int inputLen = cipherData.length;
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            int offSet = 0;
+            byte[] cache;
+            int i = 0;
+            // 对数据分段加密
+            while (inputLen - offSet > 0) {
+                if (inputLen - offSet > MAX_ENCRYPT_BLOCK) {
+                    cache = cipher.doFinal(cipherData, offSet, MAX_ENCRYPT_BLOCK);
+                } else {
+                    cache = cipher.doFinal(cipherData, offSet, inputLen - offSet);
+                }
+                out.write(cache, 0, cache.length);
+                i++;
+                offSet = i * MAX_ENCRYPT_BLOCK;
+            }
+            byte[] encryptedData = out.toByteArray();
+            out.close();
+            return encryptedData;
         } catch (NoSuchAlgorithmException e) {
             throw new Exception("无此解密算法");
         } catch (NoSuchPaddingException e) {

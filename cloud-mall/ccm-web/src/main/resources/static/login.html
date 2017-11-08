@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <script src="libs/jquery.min.js"></script>
+    <script src="libs/jsencrypt.min.js"></script>
+    <script type="application/javascript">
+        $(function () {
+            $("#submit").click(function () {
+                var pass = $("input[name='password']").val();
+                $.ajax({
+                    url:"/get-public-key",
+                    type:'get',
+                    dataType:'json',
+                    success:function (data) {
+                        if(data.code === "0000"){
+                            var encrypt = new JSEncrypt();
+                            encrypt.setPublicKey(data.data);
+                            var encrypted = encrypt.encrypt(pass);
+                            console.log(encrypted);
+                            $.post("/user-login",{
+                                userName:$("input[name='username']").val(),
+                                password:encrypted
+                            },function (result) {
+                                console.log(result);
+                            })
+                        }
+                    }
+                });
+                console.log(pass);
+            })
+        });
+    </script>
+</head>
+<body>
+    <form action="" method="post">
+        用户名：<input type="text" name="username"><br>
+        密码：<input type="text" name="password"><br>
+        <input type="button" value="提交" id="submit"><br>
+    </form>
+</body>
+</html>

@@ -8,8 +8,9 @@ public interface UserService {
      * @param userName
      * @param password
      * @return
+     * @throws Exception
      */
-    BaseRespDTO userLogin(String userName,String password);
+    BaseRespDTO userLogin(String userName,String password) throws Exception;
 
     /**
      * 获取公钥信息
