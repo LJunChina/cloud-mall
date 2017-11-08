@@ -4,6 +4,7 @@ import com.cloud.mall.usermicriservice.dao.IUserDao;
 import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
 import com.cloud.mall.usermicriservice.enums.ResultCode;
 import com.cloud.mall.usermicriservice.model.User;
+import com.cloud.mall.usermicriservice.utils.SSOUtil;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import com.cloud.mall.usermicriservice.service.UserService;
 import com.cloud.mall.usermicriservice.utils.EmptyChecker;
@@ -63,9 +64,11 @@ public class UserServiceImpl implements UserService {
             return new BaseRespDTO(ResultCode.USER_NAME_OR_PASSWORD_ERROR);
         }
         //写入redis
-        this.redisTemplate.opsForValue().set(UUID.randomUUID().toString().toUpperCase()
-                ,currentUser,15L, TimeUnit.MINUTES);
-        return new BaseRespDTO();
+        String tokenId = SSOUtil.generatorTokenId();
+        this.redisTemplate.opsForValue().set(tokenId,currentUser,15L, TimeUnit.MINUTES);
+        BaseRespDTO result = new BaseRespDTO();
+        result.setData(tokenId);
+        return result;
     }
 
     @Override

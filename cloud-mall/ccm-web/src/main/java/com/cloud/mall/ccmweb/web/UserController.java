@@ -1,5 +1,6 @@
 package com.cloud.mall.ccmweb.web;
 
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class UserController {
@@ -23,12 +24,21 @@ public class UserController {
     private RestTemplate restTemplate;
 
     @PostMapping(value = "/user-login")
-    public String login(@RequestParam(name = "userName")String userName, @RequestParam(name = "password")String password){
+    public String login(@RequestParam(name = "userName")String userName, @RequestParam(name = "password")String password
+            ,HttpServletResponse response){
         MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
         params.add("userName",userName);
         params.add("password",password);
         String result = this.restTemplate.postForEntity("http://user-micriservice/login",params,String.class).getBody();
         logger.info("this result is : {}" ,result);
+        JSONObject object = JSONObject.parseObject(result);
+        if("0000".equals(object.getString("code"))){
+            String tokenId = object.getString("data");
+            Cookie cookie = new Cookie("tokenId",tokenId);
+            cookie.setPath("/");
+            cookie.setMaxAge(15*60);
+            response.addCookie(cookie);
+        }
         return result;
     }
 

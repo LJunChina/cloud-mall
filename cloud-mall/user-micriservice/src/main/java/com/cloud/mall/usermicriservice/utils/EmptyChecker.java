@@ -13,7 +13,7 @@ public class EmptyChecker {
             return true;
         }
         if(t instanceof String){
-            return ((String) t).length() == 0;
+            return ((String) t).trim().length() == 0;
         }
         if(t instanceof Collection){
             return ((Collection) t).isEmpty();

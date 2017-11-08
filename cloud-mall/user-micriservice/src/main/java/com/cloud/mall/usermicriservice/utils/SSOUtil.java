@@ -1,25 +1,21 @@
 package com.cloud.mall.usermicriservice.utils;
 
-import java.util.Random;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 public class SSOUtil {
 
     private SSOUtil(){}
 
+    /**
+     * 生成tokenId
+     * @return
+     */
     public static String generatorTokenId(){
-        Random random = new Random();
-        char[] tokenChars = new char[20];
-        char[] letters = new char[36];
-        for (int i = (int)'A';i<= (int)'Z';i++){
-            letters[i-65] = (char) i;
-        }
-        for (int i = 0;i < 20; i++){
-            if(i%2 == 0){
-                tokenChars[i] = Integer.valueOf(random.nextInt(9)).toString().toCharArray()[0];
-            }else {
-                tokenChars[i] = letters[random.nextInt(35)];
-            }
-        }
-        return String.valueOf(tokenChars);
+        StringBuilder sb = new StringBuilder();
+        String uuid = UUID.randomUUID().toString();
+        String[] strings = uuid.split("-");
+        Stream.of(strings).forEach(s -> sb.append(s));
+        return sb.toString().toUpperCase();
     }
 }

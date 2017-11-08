@@ -35,6 +35,7 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-ribbon')
 	compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('com.alibaba:fastjson:1.2.40')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
