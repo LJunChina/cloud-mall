@@ -36,6 +36,7 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('com.alibaba:fastjson:1.2.40')
+	compile('com.github.penggle:kaptcha:2.3.2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

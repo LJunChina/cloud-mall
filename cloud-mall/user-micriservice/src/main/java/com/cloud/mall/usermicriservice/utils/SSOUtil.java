@@ -3,6 +3,9 @@ package com.cloud.mall.usermicriservice.utils;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+/**
+ * SSO工具类
+ */
 public class SSOUtil {
 
     private SSOUtil(){}
