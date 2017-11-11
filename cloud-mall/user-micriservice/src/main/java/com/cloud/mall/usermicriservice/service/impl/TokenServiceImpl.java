@@ -1,7 +1,10 @@
 package com.cloud.mall.usermicriservice.service.impl;
 
+import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
+import com.cloud.mall.usermicriservice.enums.ResultCode;
 import com.cloud.mall.usermicriservice.model.TokenInfo;
 import com.cloud.mall.usermicriservice.service.TokenService;
+import com.cloud.mall.usermicriservice.utils.EmptyChecker;
 import com.cloud.mall.usermicriservice.utils.SSOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -17,24 +20,41 @@ import java.util.concurrent.TimeUnit;
 @Service(value = "tokenService")
 public class TokenServiceImpl implements TokenService {
 
-    private static final long TIME_OUT = 3000L;
+    /**
+     * 默认失效时间为10分钟
+     */
+    private static final long TIME_OUT = 600000L;
 
     @Autowired
     private RedisTemplate redisTemplate;
 
     @Override
     public TokenInfo addTokenInfo(TokenInfo tokenInfo) {
-        redisTemplate.opsForValue().set(SSOUtil.generatorTokenId(),tokenInfo,TIME_OUT, TimeUnit.SECONDS);
+        tokenInfo.setExpires(System.currentTimeMillis() + TIME_OUT);
+        redisTemplate.opsForValue().set(SSOUtil.generatorTokenId(),tokenInfo,TIME_OUT, TimeUnit.MILLISECONDS);
         return tokenInfo;
     }
 
     @Override
-    public boolean deleteTokenInfo(TokenInfo tokenInfo) {
-        return false;
+    public boolean deleteTokenInfo(String tokenId) {
+        //查询是否存在
+        TokenInfo tokenInfo = (TokenInfo) this.redisTemplate.opsForValue().get(tokenId);
+        if (EmptyChecker.isEmpty(tokenInfo)) {
+            return true;
+        }
+        this.redisTemplate.delete(tokenId);
+        return true;
     }
 
     @Override
-    public TokenInfo refreshTokenInfo(TokenInfo tokenInfo) {
-        return null;
+    public BaseRespDTO refreshTokenInfo(String tokenId) {
+        TokenInfo tokenInfo = (TokenInfo) this.redisTemplate.opsForValue().get(tokenId);
+        if(EmptyChecker.isEmpty(tokenInfo)){
+            return new BaseRespDTO(ResultCode.INVALID_USER);
+        }
+        //刷新时间
+        tokenInfo.setExpires(System.currentTimeMillis() + TIME_OUT);
+        this.redisTemplate.opsForValue().set(tokenId,tokenInfo,TIME_OUT,TimeUnit.MILLISECONDS);
+        return new BaseRespDTO();
     }
 }

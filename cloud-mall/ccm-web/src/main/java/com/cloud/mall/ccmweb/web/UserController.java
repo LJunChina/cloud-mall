@@ -3,6 +3,7 @@ package com.cloud.mall.ccmweb.web;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.mall.ccmweb.dto.BaseRespDTO;
 import com.cloud.mall.ccmweb.enums.ResultCode;
+import com.cloud.mall.ccmweb.utils.Constant;
 import com.google.code.kaptcha.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,7 @@ public class UserController {
         MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
         params.add("userName",userName);
         params.add("password",password);
-        String result = this.restTemplate.postForEntity("http://user-micriservice/login",params,String.class).getBody();
+        String result = this.restTemplate.postForEntity(Constant.USER_LOGIN,params,String.class).getBody();
         logger.info("this result is : {}" ,result);
         JSONObject object = JSONObject.parseObject(result);
         if("0000".equals(object.getString("code"))){
@@ -64,7 +65,7 @@ public class UserController {
      */
     @GetMapping("/get-public-key")
     public String getPublicKey(){
-        String result = this.restTemplate.getForEntity("http://user-micriservice/get-public-key",String.class).getBody();
+        String result = this.restTemplate.getForEntity(Constant.GET_PUBLIC_KEY,String.class).getBody();
         logger.info("this result is : {}" ,result);
         return result;
     }

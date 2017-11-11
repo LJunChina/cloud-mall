@@ -1,4 +1,4 @@
-package com.cloud.mall.usermicriservice.utils;
+package com.cloud.mall.ccmweb.utils;
 
 import java.util.Arrays;
 import java.util.Collection;

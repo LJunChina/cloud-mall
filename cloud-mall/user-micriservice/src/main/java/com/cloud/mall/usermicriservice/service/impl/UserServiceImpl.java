@@ -3,8 +3,9 @@ package com.cloud.mall.usermicriservice.service.impl;
 import com.cloud.mall.usermicriservice.dao.IUserDao;
 import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
 import com.cloud.mall.usermicriservice.enums.ResultCode;
+import com.cloud.mall.usermicriservice.model.TokenInfo;
 import com.cloud.mall.usermicriservice.model.User;
-import com.cloud.mall.usermicriservice.utils.SSOUtil;
+import com.cloud.mall.usermicriservice.service.TokenService;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import com.cloud.mall.usermicriservice.service.UserService;
 import com.cloud.mall.usermicriservice.utils.EmptyChecker;
@@ -14,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.security.interfaces.RSAPrivateKey;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private TokenService tokenService;
 
     @Autowired
     private IUserDao userDao;
@@ -64,11 +64,11 @@ public class UserServiceImpl implements UserService {
             return new BaseRespDTO(ResultCode.USER_NAME_OR_PASSWORD_ERROR);
         }
         //写入redis
-        String tokenId = SSOUtil.generatorTokenId();
-        this.redisTemplate.opsForValue().set(tokenId,currentUser,15L, TimeUnit.MINUTES);
-        BaseRespDTO result = new BaseRespDTO();
-        result.setData(tokenId);
-        return result;
+        TokenInfo tokenInfo = new TokenInfo();
+        tokenInfo.setAppName("user-micriservice");
+        tokenInfo.setUserId(currentUser.getId());
+        this.tokenService.addTokenInfo(tokenInfo);
+        return new BaseRespDTO();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.cloud.mall.usermicriservice.service;
 
+import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
 import com.cloud.mall.usermicriservice.model.TokenInfo;
 
 /**
@@ -12,7 +13,7 @@ public interface TokenService {
 
     TokenInfo addTokenInfo(TokenInfo tokenInfo);
 
-    boolean deleteTokenInfo(TokenInfo tokenInfo);
+    boolean deleteTokenInfo(String tokenId);
 
-    TokenInfo refreshTokenInfo(TokenInfo tokenInfo);
+    BaseRespDTO refreshTokenInfo(String tokenId);
 }
