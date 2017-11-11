@@ -30,3 +30,4 @@ nbdist/
 /gradle/
 !/build.gradle
 !/src/main/resources/static/dist/
+!/src/main/resources/static/dist/components/
