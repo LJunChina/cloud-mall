@@ -28,3 +28,4 @@ nbdist/
 /out/
 /gradle/
 !/build.gradle
+!/ccm-web/src/main/resources/static/dist/

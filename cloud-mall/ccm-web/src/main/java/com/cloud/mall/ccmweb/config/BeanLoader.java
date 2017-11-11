@@ -19,7 +19,7 @@ public class BeanLoader {
         properties.setProperty("kaptcha.border.color","105,179,90");
         properties.setProperty("kaptcha.textproducer.font.color","red");
         properties.setProperty("kaptcha.image.width","250");
-        properties.setProperty("kaptcha.textproducer.font.size","90");
+        properties.setProperty("kaptcha.textproducer.font.size","80");
         properties.setProperty("kaptcha.image.height","90");
         properties.setProperty("kaptcha.session.key","code");
         properties.setProperty("kaptcha.textproducer.char.length","4");
