@@ -2,10 +2,15 @@ package com.cloud.mall.usermicriservice.service.impl;
 
 import com.cloud.mall.usermicriservice.dao.IUserDao;
 import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
+import com.cloud.mall.usermicriservice.dto.UserSearchReqDTO;
 import com.cloud.mall.usermicriservice.enums.ResultCode;
 import com.cloud.mall.usermicriservice.model.TokenInfo;
 import com.cloud.mall.usermicriservice.model.User;
+import com.cloud.mall.usermicriservice.model.UserVO;
 import com.cloud.mall.usermicriservice.service.TokenService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import com.cloud.mall.usermicriservice.service.UserService;
 import com.cloud.mall.usermicriservice.utils.EmptyChecker;
@@ -18,6 +23,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.security.interfaces.RSAPrivateKey;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -81,7 +87,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public BaseRespDTO getUserList() {
-        return null;
+    public BaseRespDTO getUserList(UserSearchReqDTO request) {
+        PageInfo<User> userPage = PageHelper.startPage(request.getPageNum(),request.getPageSize())
+                .doSelectPageInfo(() -> this.userDao.getUserListByPage(request));
+        BaseRespDTO respDTO = new BaseRespDTO();
+        respDTO.setData(userPage);
+        return respDTO;
     }
 }

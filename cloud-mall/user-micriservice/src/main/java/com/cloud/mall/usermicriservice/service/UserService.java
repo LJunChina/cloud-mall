@@ -1,6 +1,8 @@
 package com.cloud.mall.usermicriservice.service;
 
 import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
+import com.cloud.mall.usermicriservice.dto.UserSearchReqDTO;
+import com.cloud.mall.usermicriservice.model.UserVO;
 
 public interface UserService {
     /**
@@ -21,7 +23,8 @@ public interface UserService {
 
     /**
      * 用户列表查询
+     * @param request
      * @return
      */
-    BaseRespDTO getUserList();
+    BaseRespDTO getUserList(UserSearchReqDTO request);
 }

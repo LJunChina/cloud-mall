@@ -1,6 +1,8 @@
 package com.cloud.mall.usermicriservice.web;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
+import com.cloud.mall.usermicriservice.dto.UserSearchReqDTO;
 import com.cloud.mall.usermicriservice.enums.ResultCode;
 import com.cloud.mall.usermicriservice.service.UserService;
 import org.slf4j.Logger;
@@ -32,6 +34,10 @@ public class UserController {
         }
     }
 
+    /**
+     * 公钥获取
+     * @return
+     */
     @GetMapping(value = "/get-public-key")
     public String getPublicKey(){
         try {
@@ -40,6 +46,24 @@ public class UserController {
             return result.toString();
         }catch (Exception e){
             logger.error("exception occurred in getPublicKey",e);
+            return new BaseRespDTO(ResultCode.ERROR).toString();
+        }
+    }
+
+    /**
+     * 获取用户列表
+     * @return
+     */
+    @GetMapping(value = "/get-user-list")
+    public String getUserListByPage(@RequestParam(value = "message") String message){
+        logger.info("the params of getUserListByPage is :{}",message);
+        try {
+            UserSearchReqDTO userSearchReqDTO = JSONObject.parseObject(message, UserSearchReqDTO.class);
+            BaseRespDTO result = this.userService.getUserList(userSearchReqDTO);
+            logger.info("this result of getUserListByPage is :{}",result.toString());
+            return result.toString();
+        }catch (Exception e){
+            logger.error("exception occurred in getUserListByPage",e);
             return new BaseRespDTO(ResultCode.ERROR).toString();
         }
     }
