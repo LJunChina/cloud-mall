@@ -39,6 +39,7 @@ dependencies {
     compile('com.alibaba:druid-spring-boot-starter:1.1.4')
     compile('org.springframework.boot:spring-boot-starter-redis:1.4.7.RELEASE')
 	compile('commons-codec:commons-codec:1.9')
+	compile('com.github.pagehelper:pagehelper-spring-boot-starter:1.2.3')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

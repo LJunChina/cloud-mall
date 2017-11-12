@@ -79,4 +79,9 @@ public class UserServiceImpl implements UserService {
         baseRespDTO.setData(RSAEncrypt.loadKeyByFile(keyPath));
         return baseRespDTO;
     }
+
+    @Override
+    public BaseRespDTO getUserList() {
+        return null;
+    }
 }

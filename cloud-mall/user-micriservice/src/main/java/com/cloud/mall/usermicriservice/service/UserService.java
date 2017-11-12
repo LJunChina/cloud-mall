@@ -18,4 +18,10 @@ public interface UserService {
      * @throws Exception
      */
     BaseRespDTO getPublicKey() throws Exception;
+
+    /**
+     * 用户列表查询
+     * @return
+     */
+    BaseRespDTO getUserList();
 }

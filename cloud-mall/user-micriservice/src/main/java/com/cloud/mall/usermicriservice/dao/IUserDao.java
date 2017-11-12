@@ -3,6 +3,8 @@ package com.cloud.mall.usermicriservice.dao;
 import com.cloud.mall.usermicriservice.model.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository(value = "userDao")
 public interface IUserDao {
     /**
@@ -25,4 +27,11 @@ public interface IUserDao {
      * @return
      */
     int updateUserById(User user);
+
+    /**
+     * 分页查询用户信息
+     * @param user
+     * @return
+     */
+    List<User> getUserListByPage(User user);
 }

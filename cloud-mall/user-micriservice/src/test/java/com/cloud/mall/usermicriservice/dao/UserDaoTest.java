@@ -2,6 +2,8 @@ package com.cloud.mall.usermicriservice.dao;
 
 import com.cloud.mall.usermicriservice.UserMicriserviceApplicationTests;
 import com.cloud.mall.usermicriservice.model.User;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +41,11 @@ public class UserDaoTest extends UserMicriserviceApplicationTests {
         user.setUsername("JUnit");
         user.setEmail("3131@qq.com");
         Assert.assertEquals(1,this.userDao.updateUserById(user));
+    }
+
+    @Test
+    public void testGetUserListByPage(){
+        Page<User> page = PageHelper.startPage(1,10).doSelectPage(() -> this.userDao.getUserListByPage(null));
+        Assert.assertNotNull(page.getResult());
     }
 }
