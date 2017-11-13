@@ -6,7 +6,6 @@ import com.cloud.mall.usermicriservice.dto.UserSearchReqDTO;
 import com.cloud.mall.usermicriservice.enums.ResultCode;
 import com.cloud.mall.usermicriservice.model.TokenInfo;
 import com.cloud.mall.usermicriservice.model.User;
-import com.cloud.mall.usermicriservice.model.UserVO;
 import com.cloud.mall.usermicriservice.service.TokenService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -23,9 +22,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.security.interfaces.RSAPrivateKey;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {

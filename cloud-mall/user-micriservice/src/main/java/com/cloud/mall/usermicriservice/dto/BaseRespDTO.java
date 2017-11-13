@@ -6,7 +6,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.Serializable;
-
+/**
+ * 基本返回报文对象
+ *
+ * @author Jon_China
+ * @create 2017/11/6
+ */
 public class BaseRespDTO implements Serializable {
     private static final long serialVersionUID = -7964635136197468217L;
 
