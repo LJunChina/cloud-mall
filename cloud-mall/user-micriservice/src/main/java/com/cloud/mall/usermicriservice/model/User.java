@@ -71,6 +71,19 @@ public class User implements Serializable {
      */
     private String mobile;
 
+    /**
+     * 当次登录token
+     */
+    private String loginToken;
+
+    public String getLoginToken() {
+        return loginToken;
+    }
+
+    public void setLoginToken(String loginToken) {
+        this.loginToken = loginToken;
+    }
+
     public String getId() {
         return id;
     }

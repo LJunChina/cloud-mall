@@ -11,7 +11,7 @@ import com.cloud.mall.usermicriservice.model.TokenInfo;
  */
 public interface TokenService {
 
-    TokenInfo addTokenInfo(TokenInfo tokenInfo);
+    String addTokenInfo(TokenInfo tokenInfo);
 
     boolean deleteTokenInfo(String tokenId);
 

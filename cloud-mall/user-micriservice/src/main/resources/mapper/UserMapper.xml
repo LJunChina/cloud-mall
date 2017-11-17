@@ -13,6 +13,7 @@
         <result column="idcard" jdbcType="VARCHAR" property="idcard" />
         <result column="is_admin" jdbcType="VARCHAR" property="isAdmin" />
         <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+        <result column="login_token" jdbcType="VARCHAR" property="loginToken"/>
     </resultMap>
     <sql id="Base_Column_List">
         id,username,password,name,sex,status,orgid,email,idcard,is_admin,mobile

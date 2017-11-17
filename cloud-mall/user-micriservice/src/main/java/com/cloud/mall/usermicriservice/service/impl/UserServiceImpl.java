@@ -69,7 +69,10 @@ public class UserServiceImpl implements UserService {
         TokenInfo tokenInfo = new TokenInfo();
         tokenInfo.setAppName("user-micriservice");
         tokenInfo.setUserId(currentUser.getId());
-        this.tokenService.addTokenInfo(tokenInfo);
+        String tokenId = this.tokenService.addTokenInfo(tokenInfo);
+        //更新登录token
+        currentUser.setLoginToken(tokenId);
+        this.userDao.updateUserById(currentUser);
         return new BaseRespDTO();
     }
 

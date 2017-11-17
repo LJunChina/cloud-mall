@@ -29,10 +29,11 @@ public class TokenServiceImpl implements TokenService {
     private RedisTemplate redisTemplate;
 
     @Override
-    public TokenInfo addTokenInfo(TokenInfo tokenInfo) {
+    public String addTokenInfo(TokenInfo tokenInfo) {
         tokenInfo.setExpires(System.currentTimeMillis() + TIME_OUT);
-        redisTemplate.opsForValue().set(SSOUtil.generatorTokenId(),tokenInfo,TIME_OUT, TimeUnit.MILLISECONDS);
-        return tokenInfo;
+        String tokenId = SSOUtil.generatorTokenId();
+        redisTemplate.opsForValue().set(tokenId,tokenInfo,TIME_OUT, TimeUnit.MILLISECONDS);
+        return tokenId;
     }
 
     @Override
