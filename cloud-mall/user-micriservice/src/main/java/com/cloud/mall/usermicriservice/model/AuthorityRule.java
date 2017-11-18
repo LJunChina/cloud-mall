@@ -7,6 +7,8 @@ public class AuthorityRule implements Serializable {
 
 
     private static final long serialVersionUID = -4735760305787725832L;
+
+    private String id;
     /**
      * 
      * authority_rule.auth_id
@@ -34,5 +36,13 @@ public class AuthorityRule implements Serializable {
 
     public void setRoleId(String roleId) {
         this.roleId = roleId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
