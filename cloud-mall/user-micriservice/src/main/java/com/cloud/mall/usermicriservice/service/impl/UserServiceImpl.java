@@ -2,12 +2,12 @@ package com.cloud.mall.usermicriservice.service.impl;
 
 import com.cloud.mall.usermicriservice.dao.IUserDao;
 import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
-import com.cloud.mall.usermicriservice.dto.UserSearchReqDTO;
+import com.cloud.mall.usermicriservice.dto.UserDetailRespDTO;
+import com.cloud.mall.usermicriservice.dto.UserSearchRespDTO;
 import com.cloud.mall.usermicriservice.enums.ResultCode;
 import com.cloud.mall.usermicriservice.model.TokenInfo;
 import com.cloud.mall.usermicriservice.model.User;
 import com.cloud.mall.usermicriservice.service.TokenService;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
@@ -73,7 +73,9 @@ public class UserServiceImpl implements UserService {
         //更新登录token
         currentUser.setLoginToken(tokenId);
         this.userDao.updateUserById(currentUser);
-        return new BaseRespDTO();
+        BaseRespDTO baseRespDTO = new BaseRespDTO();
+        baseRespDTO.setData(tokenId);
+        return baseRespDTO;
     }
 
     @Override
@@ -86,11 +88,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public BaseRespDTO getUserList(UserSearchReqDTO request) {
+    public BaseRespDTO getUserList(UserSearchRespDTO request) {
         PageInfo<User> userPage = PageHelper.startPage(request.getPageNum(),request.getPageSize())
                 .doSelectPageInfo(() -> this.userDao.getUserListByPage(request));
         BaseRespDTO respDTO = new BaseRespDTO();
         respDTO.setData(userPage);
         return respDTO;
+    }
+
+    @Override
+    public UserDetailRespDTO getUserInfo(String userId) {
+        UserDetailRespDTO userDetailRespDTO = new UserDetailRespDTO();
+        User params = new User();
+        params.setId(userId);
+        userDetailRespDTO.setData(this.userDao.getUserInfo(params));
+        return userDetailRespDTO;
     }
 }

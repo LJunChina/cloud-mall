@@ -2,16 +2,15 @@ package com.cloud.mall.usermicriservice.web;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
-import com.cloud.mall.usermicriservice.dto.UserSearchReqDTO;
+import com.cloud.mall.usermicriservice.dto.UserDetailRespDTO;
+import com.cloud.mall.usermicriservice.dto.UserSearchRespDTO;
 import com.cloud.mall.usermicriservice.enums.ResultCode;
 import com.cloud.mall.usermicriservice.service.UserService;
+import com.cloud.mall.usermicriservice.utils.EmptyChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -58,12 +57,33 @@ public class UserController {
     public String getUserListByPage(@RequestParam(value = "message") String message){
         logger.info("the params of getUserListByPage is :{}",message);
         try {
-            UserSearchReqDTO userSearchReqDTO = JSONObject.parseObject(message, UserSearchReqDTO.class);
-            BaseRespDTO result = this.userService.getUserList(userSearchReqDTO);
+            UserSearchRespDTO userSearchRespDTO = JSONObject.parseObject(message, UserSearchRespDTO.class);
+            BaseRespDTO result = this.userService.getUserList(userSearchRespDTO);
             logger.info("this result of getUserListByPage is :{}",result.toString());
             return result.toString();
         }catch (Exception e){
             logger.error("exception occurred in getUserListByPage",e);
+            return new BaseRespDTO(ResultCode.ERROR).toString();
+        }
+    }
+
+    /**
+     * 用户详情查询
+     * @param userId
+     * @return
+     */
+    @GetMapping(value = "/get-user-detail/{userId}")
+    public String getUserDetail(@PathVariable(value = "userId")  String userId){
+        logger.info("the params of getUserDetail is :{}",userId);
+        if (EmptyChecker.isEmpty(userId)) {
+            return new BaseRespDTO(ResultCode.PARAMS_NOT_FOUND).toString();
+        }
+        try {
+            UserDetailRespDTO result = this.userService.getUserInfo(userId);
+            logger.info("this result of getUserDetail is :{}",result.toString());
+            return result.toString();
+        }catch (Exception e){
+            logger.error("exception occurred in getUserDetail",e);
             return new BaseRespDTO(ResultCode.ERROR).toString();
         }
     }

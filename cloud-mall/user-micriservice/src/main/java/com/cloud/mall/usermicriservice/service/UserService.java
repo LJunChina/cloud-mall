@@ -1,8 +1,8 @@
 package com.cloud.mall.usermicriservice.service;
 
 import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
-import com.cloud.mall.usermicriservice.dto.UserSearchReqDTO;
-import com.cloud.mall.usermicriservice.model.UserVO;
+import com.cloud.mall.usermicriservice.dto.UserDetailRespDTO;
+import com.cloud.mall.usermicriservice.dto.UserSearchRespDTO;
 
 public interface UserService {
     /**
@@ -26,5 +26,12 @@ public interface UserService {
      * @param request
      * @return
      */
-    BaseRespDTO getUserList(UserSearchReqDTO request);
+    BaseRespDTO getUserList(UserSearchRespDTO request);
+
+    /**
+     * 根据userId查询用户信息
+     * @param userId
+     * @return
+     */
+    UserDetailRespDTO getUserInfo(String userId);
 }

@@ -110,7 +110,8 @@
         email = #{email,jdbcType=VARCHAR},
         idcard = #{idcard,jdbcType=VARCHAR},
         is_admin = #{isAdmin,jdbcType=VARCHAR},
-        mobile = #{mobile,jdbcType=VARCHAR}
+        mobile = #{mobile,jdbcType=VARCHAR},
+        login_token = #{loginToken,jdbcType=VARCHAR}
         where id = #{id,jdbcType=VARCHAR}
     </update>
     <select id="getUserListByPage" parameterType="com.cloud.mall.usermicriservice.model.User" resultMap="BaseResultMap">

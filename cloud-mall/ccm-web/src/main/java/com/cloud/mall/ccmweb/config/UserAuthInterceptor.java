@@ -1,9 +1,14 @@
 package com.cloud.mall.ccmweb.config;
 
+import com.alibaba.fastjson.JSONObject;
+import com.cloud.mall.ccmweb.model.LoginUser;
+import com.cloud.mall.ccmweb.model.TokenInfo;
 import com.cloud.mall.ccmweb.utils.Constant;
 import com.cloud.mall.ccmweb.dto.BaseRespDTO;
 import com.cloud.mall.ccmweb.enums.ResultCode;
 import com.cloud.mall.ccmweb.utils.EmptyChecker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -24,6 +29,7 @@ import java.util.stream.Stream;
 @Component
 public class UserAuthInterceptor implements HandlerInterceptor {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserAuthInterceptor.class);
     @Autowired
     private RestTemplate restTemplate;
 
@@ -43,8 +49,19 @@ public class UserAuthInterceptor implements HandlerInterceptor {
             return false;
         }
         //查询token是否有效
-        BaseRespDTO respDTO = this.restTemplate.getForEntity(Constant.CHECK_TOKEN,BaseRespDTO.class,tokenId).getBody();
-        if(ResultCode.OK.getCode().equals(respDTO.getCode())){
+        String result = this.restTemplate.getForEntity(Constant.CHECK_TOKEN,String.class,tokenId).getBody();
+        JSONObject object = JSONObject.parseObject(result);
+        if(ResultCode.OK.getCode().equals(object.getString("code"))){
+            logger.info("token result : {}",result);
+            TokenInfo tokenInfo = JSONObject.parseObject(object.getString("data"),TokenInfo.class);
+            //存储用户登录上下文
+            LoginUser loginUser = new LoginUser();
+            loginUser.setUserId(tokenInfo.getUserId());
+            //查询用户信息
+            String userStr = this.restTemplate.getForEntity(Constant.GET_USER_INFO_BY_ID,String.class,loginUser.getUserId()).getBody();
+            JSONObject userObject = JSONObject.parseObject(userStr);
+            String tokenStr = userObject.getString("loginToken");
+            LoginUserContext.addLoginUserContext(loginUser);
             return true;
         }
         return false;

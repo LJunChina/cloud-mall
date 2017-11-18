@@ -56,6 +56,8 @@ public class TokenServiceImpl implements TokenService {
         //刷新时间
         tokenInfo.setExpires(System.currentTimeMillis() + TIME_OUT);
         this.redisTemplate.opsForValue().set(tokenId,tokenInfo,TIME_OUT,TimeUnit.MILLISECONDS);
-        return new BaseRespDTO();
+        BaseRespDTO respDTO = new BaseRespDTO();
+        respDTO.setData(tokenInfo);
+        return respDTO;
     }
 }

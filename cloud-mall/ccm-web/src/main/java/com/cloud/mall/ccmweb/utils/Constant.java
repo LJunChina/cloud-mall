@@ -15,5 +15,9 @@ public final class Constant {
     /**用户登录*/
     public static final String USER_LOGIN = USER_SERVICE + "/login";
     /**检测token是否有效*/
-    public static final String CHECK_TOKEN = USER_SERVICE + "/check-token/{1}";
+    public static final String CHECK_TOKEN = USER_SERVICE + "/token/check-token/{1}";
+    /**根据用户id查询用户信息*/
+    public static final String GET_USER_INFO_BY_ID = USER_SERVICE + "/get-user-detail/{1}";
+    /**根据条件查询用户列表*/
+    public static final String GET_USER_LIST = USER_SERVICE + "/get-user-list?message={1}";
 }

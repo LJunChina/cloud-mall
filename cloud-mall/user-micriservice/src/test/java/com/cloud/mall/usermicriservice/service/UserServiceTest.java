@@ -2,6 +2,7 @@ package com.cloud.mall.usermicriservice.service;
 
 import com.cloud.mall.usermicriservice.UserMicriserviceApplicationTests;
 import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
+import com.cloud.mall.usermicriservice.dto.UserSearchRespDTO;
 import com.cloud.mall.usermicriservice.model.UserVO;
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,9 +24,14 @@ public class UserServiceTest extends UserMicriserviceApplicationTests {
     }
     @Test
     public void testGetUserList(){
-        UserVO userVO = new UserVO();
+        UserSearchRespDTO userVO = new UserSearchRespDTO();
         userVO.setPageNum(1);
         userVO.setPageSize(10);
         Assert.assertNotNull(this.userService.getUserList(userVO).getData());
+    }
+
+    @Test
+    public void testGetUserInfo(){
+        Assert.assertNotNull(this.userService.getUserInfo("342dc4fd-ddeb-42ad-87b8-a53ab1ab45ea"));
     }
 }
