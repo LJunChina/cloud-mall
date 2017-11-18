@@ -22,13 +22,13 @@ public class Authority implements Serializable {
      * 
      * authority.parentid
      */
-    private String parentid;
+    private String parentId;
 
     /**
      * 
      * authority.sortnum
      */
-    private Integer sortnum;
+    private Integer sortNum;
 
     /**
      * 
@@ -65,20 +65,20 @@ public class Authority implements Serializable {
         this.name = name;
     }
 
-    public String getParentid() {
-        return parentid;
+    public String getParentId() {
+        return parentId;
     }
 
-    public void setParentid(String parentid) {
-        this.parentid = parentid;
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 
-    public Integer getSortnum() {
-        return sortnum;
+    public Integer getSortNum() {
+        return sortNum;
     }
 
-    public void setSortnum(Integer sortnum) {
-        this.sortnum = sortnum;
+    public void setSortNum(Integer sortNum) {
+        this.sortNum = sortNum;
     }
 
     public String getStyle() {

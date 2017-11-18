@@ -4,13 +4,58 @@
     <resultMap id="BaseResultMap" type="com.cloud.mall.usermicriservice.model.Authority">
         <id column="id" jdbcType="BIGINT" property="Id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="parentid" jdbcType="VARCHAR" property="parentid" />
-        <result column="sortnum" jdbcType="INTEGER" property="sortnum" />
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+        <result column="sort_num" jdbcType="INTEGER" property="sortNum" />
         <result column="style" jdbcType="VARCHAR" property="style" />
         <result column="icon" jdbcType="VARCHAR" property="icon" />
         <result column="available" jdbcType="VARCHAR" property="available" />
     </resultMap>
     <sql id="Base_Column_List">
-        id,name,parentid,sortnum,style,icon,available
+        id,gmt_create,gmt_modified,name,parent_id,sort_num,style,icon,available
     </sql>
+    <insert id="addAuthority" parameterType="com.cloud.mall.usermicriservice.model.Authority">
+        insert into authority
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="name != null">
+                name,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="sortNum != null">
+                sort_num,
+            </if>
+            <if test="style != null">
+                style,
+            </if>
+            <if test="icon != null">
+                icon,
+            </if>
+            <if test="available != null">
+                available,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id,jdbcType=VARCHAR},
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="sortNum != null">
+                #{sortNum,jdbcType=INTEGER},
+            </if>
+            <if test="style != null">
+                #{style,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="available != null">
+                #{available,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
 </mapper>
