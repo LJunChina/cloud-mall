@@ -16,7 +16,7 @@
         <result column="login_token" jdbcType="VARCHAR" property="loginToken"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,username,password,name,sex,status,orgid,email,idcard,is_admin,mobile
+        id,username,password,name,sex,status,orgid,email,idcard,is_admin,mobile,login_token
     </sql>
     <select id="getUserInfo" parameterType="com.cloud.mall.usermicriservice.model.User" resultMap="BaseResultMap">
         select <include refid="Base_Column_List" /> from user where 1 = 1

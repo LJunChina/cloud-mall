@@ -1,6 +1,7 @@
 package com.cloud.mall.ccmweb.config;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.mall.ccmweb.Exception.UserAuthException;
 import com.cloud.mall.ccmweb.model.LoginUser;
 import com.cloud.mall.ccmweb.model.TokenInfo;
 import com.cloud.mall.ccmweb.utils.Constant;
@@ -60,7 +61,10 @@ public class UserAuthInterceptor implements HandlerInterceptor {
             //查询用户信息
             String userStr = this.restTemplate.getForEntity(Constant.GET_USER_INFO_BY_ID,String.class,loginUser.getUserId()).getBody();
             JSONObject userObject = JSONObject.parseObject(userStr);
-            String tokenStr = userObject.getString("loginToken");
+            String tokenStr = userObject.getJSONObject("data").getString("loginToken");
+            if(!tokenStr.equals(tokenId)){
+                throw new UserAuthException("登录已失效");
+            }
             LoginUserContext.addLoginUserContext(loginUser);
             return true;
         }
