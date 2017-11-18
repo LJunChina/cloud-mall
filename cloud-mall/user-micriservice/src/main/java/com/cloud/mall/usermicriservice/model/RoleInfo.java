@@ -3,7 +3,7 @@ package com.cloud.mall.usermicriservice.model;
 import java.io.Serializable;
 
 
-public class RuleInfo implements Serializable {
+public class RoleInfo implements Serializable {
 
 
     private static final long serialVersionUID = 6552293961016941483L;

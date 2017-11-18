@@ -20,4 +20,5 @@ public final class Constant {
     public static final String GET_USER_INFO_BY_ID = USER_SERVICE + "/get-user-detail/{1}";
     /**根据条件查询用户列表*/
     public static final String GET_USER_LIST = USER_SERVICE + "/get-user-list?message={1}";
+    public static final String SAVE_ROLE_INFO = USER_SERVICE + "/role/save-role";
 }

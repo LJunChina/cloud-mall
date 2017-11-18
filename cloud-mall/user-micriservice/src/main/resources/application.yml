@@ -5,7 +5,7 @@ spring:
     name: user-micriservice
   datasource:
     name: datasource
-    url: jdbc:mysql://localhost:3306/cloud_mall?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/cloud_mall?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>系统角色</title>
+    <link rel="stylesheet" type="text/css" href="dist/semantic.css">
+</head>
+<body>
+<div class="ui two column stackable grid">
+    <div class="column">
+        <form class="ui small form">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="roleName" placeholder="角色名称">
+                    </div>
+                </div>
+                <div class="ui fluid large teal submit button">提交</div>
+            </div>
+            <div class="ui error message"></div>
+        </form>
+    </div>
+</div>
+<div class="ui mini modal">
+    <h2 class="header">提示</h2>
+    <div class="content" id="content">
+    </div>
+    <div class="actions">
+        <button class="ui positive button">确定</button>
+    </div>
+</div>
+<script src="libs/jquery.min.js"></script>
+<script src="dist/semantic.js"></script>
+<script type="application/javascript">
+    $(document).ready(function() {
+        $('.ui.form').form({
+            fields: {
+                roleName: {
+                    identifier  : 'roleName',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : '请输入角色名称'
+                        }
+                    ]
+                }
+            },
+            onSuccess:submitForm
+        });
+        $('.ui.form').submit(function(){
+            return false;
+        });
+    });
+    function submitForm() {
+        var formData = $('.ui.form input').serializeArray();
+        $.post("/role/save-role",formData,function (result) {
+            var jsonResult = JSON.parse(result);
+            if(jsonResult.code === '0000'){
+                $('.ui.modal').modal({
+                        blurring: true,
+                        onShow:function () {
+                            $(this).find(".content").text(jsonResult.message);
+                        }
+                    }).modal('show');
+            }else {
+                $('.ui.modal').modal({
+                    blurring: true,
+                    onShow:function () {
+                        $(this).find(".content").text(jsonResult.message);
+                    }
+                }).modal('show');
+            }
+        });
+    }
+</script>
+</body>
+</html>
