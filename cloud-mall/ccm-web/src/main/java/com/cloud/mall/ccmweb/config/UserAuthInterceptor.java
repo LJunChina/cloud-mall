@@ -38,15 +38,18 @@ public class UserAuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();
         if(EmptyChecker.isEmpty(cookies)){
+            response.sendRedirect("/login.html");
             return false;
         }
         String tokenId;
         Cookie tokenCookie = Stream.of(cookies).filter(c -> "tokenId".equals(c.getName())).findFirst().orElse(null);
         if(EmptyChecker.isEmpty(tokenCookie)){
+            response.sendRedirect("/login.html");
             return false;
         }
         tokenId = tokenCookie.getValue();
         if(EmptyChecker.isEmpty(tokenId)){
+            response.sendRedirect("/login.html");
             return false;
         }
         //查询token是否有效
@@ -63,6 +66,7 @@ public class UserAuthInterceptor implements HandlerInterceptor {
             JSONObject userObject = JSONObject.parseObject(userStr);
             String tokenStr = userObject.getJSONObject("data").getString("loginToken");
             if(!tokenStr.equals(tokenId)){
+                response.sendRedirect("/login.html");
                 throw new UserAuthException("登录已失效");
             }
             LoginUserContext.addLoginUserContext(loginUser);

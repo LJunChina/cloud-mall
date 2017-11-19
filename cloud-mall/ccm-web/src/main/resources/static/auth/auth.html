@@ -21,10 +21,10 @@
             </div>
         </div>
         <div class="two fields">
-            <div class="seven wide field">
+            <div class="eight wide field">
                 <label>父级</label>
-                <select class="ui fluid dropdown" name="parentId">
-                    <option value="">State</option>
+                <select class="ui fluid dropdown" name="parentId" id="parentId">
+                    <option value="sdf">State</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                 </select>
@@ -42,7 +42,7 @@
                 <label>是否立即生效</label>
             </div>
         </div>
-        <div class="ui submit button " tabindex="0">保存</div>
+        <input type="submit" class="ui submit button" value="保存">
     </form>
 </div>
 <div class="ui mini modal">
@@ -78,6 +78,10 @@
     });
     function submitForm() {
         var formData = $('.ui.form input').serializeArray();
+        formData.push({
+            name:'parentId',
+            value:$("select[name='parentId'] option:selected").val()
+        });
         $.post("/auth/save-auth",formData,function (result) {
             var jsonResult = JSON.parse(result);
             if(jsonResult.code === '0000'){

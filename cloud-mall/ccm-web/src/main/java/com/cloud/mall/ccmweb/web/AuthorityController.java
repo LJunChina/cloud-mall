@@ -13,7 +13,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -41,8 +40,13 @@ public class AuthorityController {
         Map<String,String> params = ControllerUtil.getParamtersMap(request);
         logger.info("the params of saveAuthority is : {}",params);
         try {
+            if(EmptyChecker.notEmpty(params.get("available")) && params.get("available").equals("on")){
+                params.put("available","1");
+            }else {
+                params.put("available","0");
+            }
             HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
             HttpEntity httpEntity = new HttpEntity(JSONObject.toJSONString(params),headers);
             String result = this.restTemplate.postForEntity(Constant.SAVE_AUTHORITY,httpEntity,String.class).getBody();
             logger.info("result of the saveAuthority is :{}",result);
