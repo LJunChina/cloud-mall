@@ -13,7 +13,7 @@
     <sql id="Base_Column_List">
         id,gmt_create,gmt_modified,name,parent_id,sort_num,style,icon,available
     </sql>
-    <insert id="addAuthority" parameterType="com.cloud.mall.usermicriservice.model.Authority">
+    <insert id="addAuthority" parameterType="com.cloud.mall.usermicriservice.dto.AuthorityReqDTO">
         insert into authority
         <trim prefix="(" suffix=")" suffixOverrides=",">
             id,

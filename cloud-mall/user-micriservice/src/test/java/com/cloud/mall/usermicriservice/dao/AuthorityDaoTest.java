@@ -1,8 +1,8 @@
 package com.cloud.mall.usermicriservice.dao;
 
 import com.cloud.mall.usermicriservice.UserMicriserviceApplicationTests;
+import com.cloud.mall.usermicriservice.dto.AuthorityReqDTO;
 import com.cloud.mall.usermicriservice.enums.YesOrNoEnum;
-import com.cloud.mall.usermicriservice.model.Authority;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class AuthorityDaoTest extends UserMicriserviceApplicationTests {
 
     @Test
     public void testAddAuthority(){
-        Authority authority = new Authority();
+        AuthorityReqDTO authority = new AuthorityReqDTO();
         authority.setId(UUID.randomUUID().toString());
         authority.setName("用户管理");
         authority.setAvailable(YesOrNoEnum.YES.getCode());

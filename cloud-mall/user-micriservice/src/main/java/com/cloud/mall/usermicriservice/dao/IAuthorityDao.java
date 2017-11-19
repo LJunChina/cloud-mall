@@ -1,14 +1,14 @@
 package com.cloud.mall.usermicriservice.dao;
 
-import com.cloud.mall.usermicriservice.model.Authority;
+import com.cloud.mall.usermicriservice.dto.AuthorityReqDTO;
 import org.springframework.stereotype.Repository;
 
 @Repository(value = "authorityDao")
 public interface IAuthorityDao {
     /**
      * 新增权限
-     * @param authority
+     * @param request
      * @return
      */
-    int addAuthority(Authority authority);
+    int addAuthority(AuthorityReqDTO request);
 }
