@@ -2,9 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>系统角色</title>
+    <link rel="stylesheet" type="text/css" href="dist/semantic.css">
 </head>
-<body>
-地方的发生发的分手大师的
+<body id="example" class="layouts pushable">
+<div class="pusher">
+    <div class="full h"></div>
+</div>
+<div class="item">
+    <a class="ui logo icon image" href="/">
+        <img src="assets/images/logo.png">
+    </a>
+    <a href="/"><b>UI Docs</b></a>
+</div>
+<div class="ui vertical menu">
+    <div class="item">
+        <div class="ui input"><input placeholder="Search..." type="text"></div>
+    </div>
+    <div class="item">
+        Home
+        <div class="menu">
+            <a class="active item">Search</a>
+            <a class="item">Add</a>
+            <a class="item">Remove</a>
+        </div>
+    </div>
+    <a class="item">
+        <i class="grid layout icon"></i> Browse
+    </a>
+    <a class="item">
+        Messages
+    </a>
+    <div class="ui dropdown item">
+        More
+        <i class="dropdown icon"></i>
+        <div class="menu">
+            <a class="item"><i class="edit icon"></i> Edit Profile</a>
+            <a class="item"><i class="globe icon"></i> Choose Language</a>
+            <a class="item"><i class="settings icon"></i> Account Settings</a>
+        </div>
+    </div>
+</div>
+<script src="libs/jquery.min.js"></script>
+<script src="dist/semantic.js"></script>
+<script type="application/javascript">
+    $('.ui.dropdown.item')
+        .dropdown();
+</script>
 </body>
 </html>

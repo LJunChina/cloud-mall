@@ -3,6 +3,7 @@ package com.cloud.mall.ccmweb.web;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.mall.ccmweb.dto.BaseRespDTO;
 import com.cloud.mall.ccmweb.enums.ResultCode;
+import com.cloud.mall.ccmweb.enums.YesOrNoEnum;
 import com.cloud.mall.ccmweb.utils.Constant;
 import com.cloud.mall.ccmweb.utils.ControllerUtil;
 import com.cloud.mall.ccmweb.utils.EmptyChecker;
@@ -35,15 +36,20 @@ public class AuthorityController {
     @Autowired
     private RestTemplate restTemplate;
 
+    /**
+     * 增加操作(权限信息)
+     * @param request
+     * @return
+     */
     @PostMapping(value = "/save-auth")
     public String saveAuthority(HttpServletRequest request){
         Map<String,String> params = ControllerUtil.getParamtersMap(request);
         logger.info("the params of saveAuthority is : {}",params);
         try {
             if(EmptyChecker.notEmpty(params.get("available")) && params.get("available").equals("on")){
-                params.put("available","1");
+                params.put("available", YesOrNoEnum.YES.getCode());
             }else {
-                params.put("available","0");
+                params.put("available",YesOrNoEnum.NO.getCode());
             }
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
