@@ -16,4 +16,5 @@ public interface TokenService {
     boolean deleteTokenInfo(String tokenId);
 
     BaseRespDTO refreshTokenInfo(String tokenId);
+
 }
