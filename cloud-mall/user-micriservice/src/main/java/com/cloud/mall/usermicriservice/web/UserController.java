@@ -5,6 +5,7 @@ import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
 import com.cloud.mall.usermicriservice.dto.UserDetailRespDTO;
 import com.cloud.mall.usermicriservice.dto.UserSearchRespDTO;
 import com.cloud.mall.usermicriservice.enums.ResultCode;
+import com.cloud.mall.usermicriservice.service.TokenService;
 import com.cloud.mall.usermicriservice.service.UserService;
 import com.cloud.mall.usermicriservice.utils.EmptyChecker;
 import org.slf4j.Logger;
@@ -13,12 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+
 @RestController
 public class UserController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private UserService userService;
+    @Autowired
+    private TokenService tokenService;
 
     @PostMapping(value = "/login")
     public String login(@RequestParam(name = "userName")String userName, @RequestParam(name = "password")String password){
@@ -84,6 +88,28 @@ public class UserController {
             return result.toString();
         }catch (Exception e){
             logger.error("exception occurred in getUserDetail",e);
+            return new BaseRespDTO(ResultCode.ERROR).toString();
+        }
+    }
+
+    /**
+     * 检测用户是否登录
+     * @param tokenId
+     * @return
+     */
+    @GetMapping("/is-login/{tokenId}")
+    public String getUserIsLogin(@PathVariable(value = "tokenId") String tokenId){
+        if(EmptyChecker.isEmpty(tokenId)){
+            return new BaseRespDTO(ResultCode.PARAMS_NOT_FOUND).toString();
+        }
+        logger.info("the params of getUserIsLogin is :{}",tokenId);
+        try {
+            BaseRespDTO baseRespDTO = this.tokenService.refreshTokenInfo(tokenId);
+            String result = baseRespDTO.toString();
+            logger.info("this result of getUserIsLogin is : {}" ,result);
+            return result;
+        }catch (Exception e){
+            logger.error("exception occurred in getUserIsLogin :",e);
             return new BaseRespDTO(ResultCode.ERROR).toString();
         }
     }

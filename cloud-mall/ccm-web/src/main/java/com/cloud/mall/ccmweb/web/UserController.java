@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 @RestController
 public class UserController {
@@ -96,6 +97,27 @@ public class UserController {
         logger.info("the params of [get-user-list] is :{}",params);
         String result = this.restTemplate.getForEntity(Constant.GET_USER_LIST,String.class,params).getBody();
         logger.info("this result is : {}" ,result);
+        return result;
+    }
+
+    /**
+     * 检测用户是否登录
+     * @param request
+     * @return
+     */
+    @GetMapping("/is-login/{tokenId}")
+    public String getUserIsLogin(HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        if(EmptyChecker.isEmpty(cookies)){
+            return new BaseRespDTO(ResultCode.LOGIN_EFFICACY).toString();
+        }
+        Cookie tokenCookie = Stream.of(cookies).filter(c -> "tokenId".equals(c.getName())).findFirst().orElse(null);
+        if(EmptyChecker.isEmpty(tokenCookie)){
+            return new BaseRespDTO(ResultCode.LOGIN_EFFICACY).toString();
+        }
+        logger.info("the params of getUserIsLogin is :{}",tokenCookie.getValue());
+        String result = this.restTemplate.getForEntity(Constant.GET_USER_IS_LOGIN,String.class,tokenCookie.getValue()).getBody();
+        logger.info("this result of getUserIsLogin is : {}" ,result);
         return result;
     }
 }

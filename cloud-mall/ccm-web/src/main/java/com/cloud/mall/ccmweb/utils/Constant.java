@@ -24,4 +24,6 @@ public final class Constant {
     public static final String SAVE_ROLE_INFO = USER_SERVICE + "/role/save-role";
     /**保存权限信息*/
     public static final String SAVE_AUTHORITY = USER_SERVICE + "/auth/save-auth";
+    /**用户是否登录*/
+    public static final String GET_USER_IS_LOGIN = USER_SERVICE + "/is-login/{tokenId}";
 }
