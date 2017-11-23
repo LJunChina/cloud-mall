@@ -24,12 +24,20 @@ public class AuthorityDaoTest extends UserMicriserviceApplicationTests {
     public void testAddAuthority(){
         AuthorityReqDTO authority = new AuthorityReqDTO();
         authority.setId(UUID.randomUUID().toString());
-        authority.setName("用户管理");
+        authority.setName("用户管理1");
         authority.setAvailable(YesOrNoEnum.YES.getCode());
         authority.setIcon("phone");
         authority.setParentId("0");
         authority.setSortNum(1);
         authority.setStyle("large");
+        authority.setAppName("cloud_mall");
         Assert.assertEquals(1,this.authorityDao.addAuthority(authority));
+    }
+
+    @Test
+    public void testGetAllAuthorities(){
+        AuthorityReqDTO reqDTO = new AuthorityReqDTO();
+        reqDTO.setAppName("cloud_mall");
+        Assert.assertNotNull(this.authorityDao.getAllAuthorities(reqDTO));
     }
 }

@@ -21,12 +21,9 @@
             </div>
         </div>
         <div class="two fields">
-            <div class="eight wide field">
+            <div class="seven wide field">
                 <label>父级</label>
                 <select class="ui fluid dropdown" name="parentId" id="parentId">
-                    <option value="sdf">State</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
                 </select>
             </div>
         </div>
@@ -58,6 +55,17 @@
 <script type="application/javascript">
     $(document).ready(function() {
         $('.ui.checkbox').checkbox();
+        //填充父级菜单数据
+        $.getJSON("/auth/get-all-menus",function (resultData) {
+            if(resultData.code === '0000'){
+                var $parentIdSelected = $("#parentId");
+                var data = resultData.resultData;
+                $.each(data,function () {
+                    $parentIdSelected.append('<option value="'+this.id+'">'+this.name+'</option>');
+                });
+            }
+            console.log(resultData);
+        });
         $('.ui.form').form({
             fields: {
                 roleName: {

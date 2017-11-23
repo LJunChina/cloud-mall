@@ -26,4 +26,6 @@ public final class Constant {
     public static final String SAVE_AUTHORITY = USER_SERVICE + "/auth/save-auth";
     /**用户是否登录*/
     public static final String GET_USER_IS_LOGIN = USER_SERVICE + "/is-login/{tokenId}";
+    /**获取系统菜单*/
+    public static final String GET_ALL_MENUS = USER_SERVICE + "/auth/get-all-menus/{appName}";
 }

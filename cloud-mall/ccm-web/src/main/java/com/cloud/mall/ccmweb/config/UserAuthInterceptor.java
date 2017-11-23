@@ -66,6 +66,7 @@ public class UserAuthInterceptor implements HandlerInterceptor {
             JSONObject userObject = JSONObject.parseObject(userStr);
             String tokenStr = userObject.getJSONObject("data").getString("loginToken");
             if(!tokenStr.equals(tokenId)){
+                logger.warn("user login already disabled ");
                 response.sendRedirect("/login.html");
                 throw new UserAuthException("登录已失效");
             }

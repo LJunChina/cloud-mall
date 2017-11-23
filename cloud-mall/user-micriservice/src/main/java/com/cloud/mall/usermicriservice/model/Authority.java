@@ -10,7 +10,7 @@ public class Authority implements Serializable {
      * 
      * authority.id
      */
-    private String id;
+    private String Id;
 
     /**
      * 
@@ -48,13 +48,14 @@ public class Authority implements Serializable {
      */
     private String available;
 
+    private String appName;
 
     public String getId() {
-        return id;
+        return Id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        Id = id;
     }
 
     public String getName() {
@@ -103,5 +104,13 @@ public class Authority implements Serializable {
 
     public void setAvailable(String available) {
         this.available = available;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
 }

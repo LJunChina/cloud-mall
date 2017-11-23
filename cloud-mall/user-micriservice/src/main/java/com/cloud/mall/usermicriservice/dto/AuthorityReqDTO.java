@@ -12,7 +12,7 @@ public class AuthorityReqDTO implements Serializable {
 
     private static final long serialVersionUID = 3218445809112489706L;
 
-    private String id;
+    private String Id;
 
     private String name;
 
@@ -26,12 +26,22 @@ public class AuthorityReqDTO implements Serializable {
 
     private String available;
 
+    private String appName;
+
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
+
     public String getId() {
-        return id;
+        return Id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        Id = id;
+    }
+
+    public String getAppName() {
+        return appName;
     }
 
     public String getName() {

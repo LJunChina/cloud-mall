@@ -9,9 +9,10 @@
         <result column="style" jdbcType="VARCHAR" property="style" />
         <result column="icon" jdbcType="VARCHAR" property="icon" />
         <result column="available" jdbcType="VARCHAR" property="available" />
+        <result column="app_name" jdbcType="VARCHAR" property="appName"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,gmt_create,gmt_modified,name,parent_id,sort_num,style,icon,available
+        id,name,parent_id,sort_num,style,icon,available,app_name
     </sql>
     <insert id="addAuthority" parameterType="com.cloud.mall.usermicriservice.dto.AuthorityReqDTO">
         insert into authority
@@ -35,6 +36,9 @@
             <if test="available != null">
                 available,
             </if>
+            <if test="appName != null">
+                app_name,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             #{id,jdbcType=VARCHAR},
@@ -56,6 +60,18 @@
             <if test="available != null">
                 #{available,jdbcType=VARCHAR},
             </if>
+            <if test="appName != null">
+                #{appName,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
+
+    <select id="getAllAuthorities" resultMap="BaseResultMap" parameterType="com.cloud.mall.usermicriservice.dto.AuthorityReqDTO">
+        SELECT <include refid="Base_Column_List"/>
+        FROM authority
+        WHERE 1=1
+        <if test="appName != null">
+            AND app_name = #{appName,jdbcType=VARCHAR}
+        </if>
+    </select>
 </mapper>

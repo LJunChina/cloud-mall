@@ -2,6 +2,7 @@ package com.cloud.mall.usermicriservice.service.impl;
 
 import com.cloud.mall.usermicriservice.dao.IAuthorityDao;
 import com.cloud.mall.usermicriservice.dto.AuthorityReqDTO;
+import com.cloud.mall.usermicriservice.dto.AuthorityRespDTO;
 import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
 import com.cloud.mall.usermicriservice.enums.ResultCode;
 import com.cloud.mall.usermicriservice.service.AuthorityService;
@@ -29,5 +30,20 @@ public class AuthorityServiceImpl implements AuthorityService {
             return new BaseRespDTO();
         }
         return new BaseRespDTO(ResultCode.FAIL);
+    }
+
+    /**
+     * 获取系统所有菜单信息
+     *
+     * @param appName 系统名称
+     * @return
+     */
+    @Override
+    public AuthorityRespDTO getAllMenus(String appName) {
+        AuthorityReqDTO reqDTO = new AuthorityReqDTO();
+        reqDTO.setAppName(appName);
+        AuthorityRespDTO baseRespDTO = new AuthorityRespDTO();
+        baseRespDTO.setResultData(this.authorityDao.getAllAuthorities(reqDTO));
+        return baseRespDTO;
     }
 }

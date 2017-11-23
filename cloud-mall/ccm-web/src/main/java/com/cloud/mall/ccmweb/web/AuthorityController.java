@@ -13,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,6 +57,22 @@ public class AuthorityController {
             return result;
         }catch (Exception e){
             logger.error("exception occurred in saveAuthority",e);
+            return new BaseRespDTO(ResultCode.ERROR).toString();
+        }
+    }
+
+    /**
+     * 获取系统菜单
+     * @return
+     */
+    @GetMapping(value = "/get-all-menus")
+    public String getAllMenus(){
+        try {
+            String result = this.restTemplate.getForEntity(Constant.GET_ALL_MENUS,String.class,"cloud_mall").getBody();
+            logger.info("result of the getAllMenus is :{}",result);
+            return result;
+        }catch (Exception e){
+            logger.error("exception occurred in getAllMenus",e);
             return new BaseRespDTO(ResultCode.ERROR).toString();
         }
     }
