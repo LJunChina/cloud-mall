@@ -63,8 +63,9 @@
                 $.each(data,function () {
                     $parentIdSelected.append('<option value="'+this.id+'">'+this.name+'</option>');
                 });
+            }else {
+                window.location.href = "../login.html";
             }
-            console.log(resultData);
         });
         $('.ui.form').form({
             fields: {

@@ -49,6 +49,7 @@ public class AuthorityController {
             }else {
                 params.put("available",YesOrNoEnum.NO.getCode());
             }
+            params.put("appName","cloud_mall");
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
             HttpEntity httpEntity = new HttpEntity(JSONObject.toJSONString(params),headers);
