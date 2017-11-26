@@ -1,4 +1,4 @@
-package com.cloud.mall.ccmweb.Exception;
+package com.cloud.mall.ccmweb.exception;
 
 /**
  * 用户登录异常

@@ -1,11 +1,10 @@
 package com.cloud.mall.ccmweb.config;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cloud.mall.ccmweb.Exception.UserAuthException;
+import com.cloud.mall.ccmweb.exception.UserAuthException;
 import com.cloud.mall.ccmweb.model.LoginUser;
 import com.cloud.mall.ccmweb.model.TokenInfo;
 import com.cloud.mall.ccmweb.utils.Constant;
-import com.cloud.mall.ccmweb.dto.BaseRespDTO;
 import com.cloud.mall.ccmweb.enums.ResultCode;
 import com.cloud.mall.ccmweb.utils.EmptyChecker;
 import org.slf4j.Logger;
@@ -38,17 +37,20 @@ public class UserAuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();
         if(EmptyChecker.isEmpty(cookies)){
+            logger.info("user login already disabled");
             response.sendRedirect("/login.html");
             return false;
         }
         String tokenId;
         Cookie tokenCookie = Stream.of(cookies).filter(c -> "tokenId".equals(c.getName())).findFirst().orElse(null);
         if(EmptyChecker.isEmpty(tokenCookie)){
+            logger.info("user login already disabled");
             response.sendRedirect("/login.html");
             return false;
         }
         tokenId = tokenCookie.getValue();
         if(EmptyChecker.isEmpty(tokenId)){
+            logger.info("user login already disabled");
             response.sendRedirect("/login.html");
             return false;
         }

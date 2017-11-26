@@ -37,7 +37,7 @@ public class TokenController {
             logger.info("result of checkToken is : {}",result);
             return result;
         }catch (Exception e){
-            logger.error("Exception occurred in checkToken",e);
+            logger.error("exception occurred in checkToken",e);
             return new BaseRespDTO(ResultCode.ERROR).toString();
         }
     }

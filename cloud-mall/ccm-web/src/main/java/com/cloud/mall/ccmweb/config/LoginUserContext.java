@@ -1,6 +1,6 @@
 package com.cloud.mall.ccmweb.config;
 
-import com.cloud.mall.ccmweb.Exception.UserAuthException;
+import com.cloud.mall.ccmweb.exception.UserAuthException;
 import com.cloud.mall.ccmweb.model.LoginUser;
 import com.cloud.mall.ccmweb.utils.EmptyChecker;
 
