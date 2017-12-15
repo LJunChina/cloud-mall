@@ -187,7 +187,7 @@ public class RSAEncrypt {
         if (publicKey == null) {
             throw new Exception("加密公钥为空, 请设置");
         }
-        Cipher cipher = null;
+        Cipher cipher;
         try {
             // 使用默认RSA
             cipher = Cipher.getInstance("RSA");
@@ -262,7 +262,7 @@ public class RSAEncrypt {
         if (privateKey == null) {
             throw new Exception("解密私钥为空, 请设置");
         }
-        Cipher cipher = null;
+        Cipher cipher;
         try {
             // 使用默认RSA
             cipher = Cipher.getInstance("RSA");
@@ -317,14 +317,13 @@ public class RSAEncrypt {
         if (publicKey == null) {
             throw new Exception("解密公钥为空, 请设置");
         }
-        Cipher cipher = null;
+        Cipher cipher;
         try {
             // 使用默认RSA
             cipher = Cipher.getInstance("RSA");
             // cipher= Cipher.getInstance("RSA", new BouncyCastleProvider());
             cipher.init(Cipher.DECRYPT_MODE, publicKey);
-            byte[] output = cipher.doFinal(cipherData);
-            return output;
+            return cipher.doFinal(cipherData);
         } catch (NoSuchAlgorithmException e) {
             throw new Exception("无此解密算法");
         } catch (NoSuchPaddingException e) {
