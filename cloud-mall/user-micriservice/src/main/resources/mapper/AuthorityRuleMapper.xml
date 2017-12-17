@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloud.mall.usermicriservice.dao.IAuthorityRuleDao">
     <resultMap id="BaseResultMap" type="com.cloud.mall.usermicriservice.model.AuthorityRule">
-        <id column="id" jdbcType="BIGINT" property="id" />
-        <result column="auth_id" jdbcType="VARCHAR" property="authId" />
-        <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+        <id column="ID" jdbcType="BIGINT" property="id" />
+        <result column="AUTH_ID" jdbcType="VARCHAR" property="authId" />
+        <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId" />
     </resultMap>
     <sql id="Base_Column_List">
-       id,auth_id,role_id
+       ID,AUTH_ID,ROLE_ID
     </sql>
 </mapper>
