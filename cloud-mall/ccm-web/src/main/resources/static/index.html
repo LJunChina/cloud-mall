@@ -1,36 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>后台管理系统</title>
-    <link rel="stylesheet" type="text/css" href="dist/semantic.css">
-</head>
-<body class="layouts pushable">
+    <title>Stagb Admin Template</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link href="dist/semantic.min.css" rel="stylesheet" />
+    <link href="libs/ionicons/css/ionicons.min.css" rel="stylesheet" />
+    <link href="dist/main.css" rel="stylesheet">
+    <link href="libs/pacejs/pace.css" rel="stylesheet" />
 
-<div class="ui vertical menu">
-    <div class="item">
-        <div class="ui input"><input placeholder="搜索..." type="text"></div>
+</head>
+<body>
+<div id="contextWrap">
+    <!--sidebar-->
+    <div class="ui sidebar vertical left menu overlay  borderless visible sidemenu inverted  grey" style="-webkit-transition-duration: 0.1s; transition-duration: 0.1s;" data-color="grey">
+        <a class="item logo" href="index.html">
+            <img src="assets/images/logo1.png" alt="logo" /><img src="assets/images/thumblogo.png" alt="logo" class="displaynone" />
+        </a>
+        <!--菜单-->
+        <div class="ui accordion inverted">
+
+            <div class="title item">
+                <i class="ion-speedometer titleIcon icon"></i> Dashboard <i class="dropdown icon"></i>
+            </div>
+            <div class="content">
+                <a class="item" href="javascript:;">
+                    Dashboard v1
+                </a>
+            </div>
+
+        </div>
+        <!--收缩菜单-->
+        <div class="ui dropdown item displaynone scrolling">
+            <span>Dashboard</span>
+            <i class="ion-speedometer icon"></i>
+
+            <div class="menu">
+                <div class="header">
+                    Dashboard
+                </div>
+                <div class="ui divider"></div>
+                <a class="item" href="index.html">
+                    Dashboard v1
+                </a>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+    </div>
+    <!--sidebar-->
+    <div class="pusher">
+        <!--顶部-->
+        <div class="navslide navwrap">
+            <div class="ui menu icon borderless grid" data-color="inverted white">
+                <a class="item labeled openbtn">
+                    <i class="ion-navicon-round big icon"></i>
+                </a>
+                <div class="item ui colhidden">
+                    <div class="ui icon input">
+                        <input type="text" placeholder="Search...">
+                        <i class="search icon"></i>
+                    </div>
+                </div>
+                <div class="right menu colhidden">
+
+                    <div class="ui dropdown item labeled icon">
+                        <i class="bell icon"></i>
+                        <div class="ui red label mini circular">6</div>
+                        <div class="menu">
+                            <div class="header">
+                                People You Might Know
+                            </div>
+                            <div class="item">
+                                <img class="ui avatar image" src="img/avatar/people/enid.png" alt="label-image" /> Janice Robinson
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui dropdown item">
+                        Language <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item"><i class="united kingdom flag"></i>English</a>
+                            <a class="item"><i class="turkey flag"></i>Turkish</a>
+                            <a class="item"><i class="spain flag"></i>Spanish</a>
+                        </div>
+                    </div>
+                    <div class="ui dropdown item">
+                        <img class="ui mini circular image" src="img/avatar/people/enid.png" alt="label-image" />
+                        <div class="menu">
+                            <a class="item" href="mail.html">Inbox</a>
+                            <a class="item" href="profile.html">Profile</a>
+                            <a class="item" href="settings.html">Settings</a>
+                            <div class="ui divider"></div>
+                            <a class="item">Need Help?</a>
+                            <a class="item" href="login.html">Sign Out</a>
+                        </div>
+                    </div>
+                    <a class="item labeled rightsidebar computer only">
+                        <i class="ion-wrench large icon"></i>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <!--navbar-->
+        <!--maincontent-->
+        <div class="mainWrap navslide">
+            <div class="ui equal width left aligned padded grid stackable">
+                <!--内容区-->
+
+
+            </div>
+        </div>
+        <!--maincontent-->
     </div>
 </div>
+<!--jquery-->
 <script src="libs/jquery.min.js"></script>
-<script src="dist/semantic.js"></script>
+<!--jquery-->
+<!--semantic-->
+<script src="dist/semantic.min.js"></script>
+<!--semantic-->
+<script src="libs/jquery.nicescroll.min.js"></script>
+<script src="libs/cookie/js.cookie.js"></script>
+<script data-pace-options='{ "ajax": false }' src="libs/pacejs/pace.js"></script>
+<script src="dist/main.js"></script>
 <script type="application/javascript">
-    $('.ui.dropdown.item').dropdown();
-    $(function () {
-        var $menu_contains = $(".ui.vertical.menu");
-        $.getJSON("/auth/get-all-menus",function (data) {
-            var result = data.resultData;
-            if(data.code === '0000'){
-                $.each(result,function () {
-                    $menu_contains.append("<a class=\"item\"><i class=\"grid layout icon\"></i> "+this.name+"</a>");
-                });
-            }else {
-                window.location.href = "login.html";
-            }
-        })
-    });
+    $('.ui.menu a.item').on('click', function () {
+        $(this)
+            .addClass('active')
+            .siblings()
+            .removeClass('active');
+    })
 </script>
 </body>
 </html>
