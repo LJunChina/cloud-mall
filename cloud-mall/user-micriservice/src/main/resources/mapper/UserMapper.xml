@@ -3,72 +3,72 @@
 <mapper namespace="com.cloud.mall.usermicriservice.dao.IUserDao">
     <resultMap id="BaseResultMap" type="com.cloud.mall.usermicriservice.model.User">
         <id column="id" jdbcType="VARCHAR" property="id" />
-        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
         <result column="password" jdbcType="VARCHAR" property="password" />
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="sex" jdbcType="VARCHAR" property="sex" />
         <result column="status" jdbcType="VARCHAR" property="status" />
-        <result column="orgid" jdbcType="VARCHAR" property="orgid" />
+        <result column="ORG_ID" jdbcType="VARCHAR" property="orgId" />
         <result column="email" jdbcType="VARCHAR" property="email" />
-        <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+        <result column="ID_CARD" jdbcType="VARCHAR" property="idCard" />
         <result column="is_admin" jdbcType="VARCHAR" property="isAdmin" />
         <result column="mobile" jdbcType="VARCHAR" property="mobile" />
         <result column="login_token" jdbcType="VARCHAR" property="loginToken"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,username,password,name,sex,status,orgid,email,idcard,is_admin,mobile,login_token
+        ID,USER_NAME,PASSWORD,NAME,SEX,STATUS,ORG_ID,EMAIL,ID_CARD,IS_ADMIN,MOBILE,LOGIN_TOKEN
     </sql>
     <select id="getUserInfo" parameterType="com.cloud.mall.usermicriservice.model.User" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" /> from user where 1 = 1
-        <if test="username != null and username != ''">
-            and username = #{username,jdbcType=VARCHAR}
+        SELECT <include refid="Base_Column_List" /> FROM USER_INFO WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND USER_NAME = #{userName,jdbcType=VARCHAR}
         </if>
         <if test="password != null and password != ''">
-            and password = #{password,jdbcType=VARCHAR}
+            AND PASSWORD = #{password,jdbcType=VARCHAR}
         </if>
         <if test="id != null and id != ''">
-            and id = #{id,jdbcType=VARCHAR}
+            AND ID = #{id,jdbcType=VARCHAR}
         </if>
     </select>
     <insert id="saveUser" parameterType="com.cloud.mall.usermicriservice.model.User">
-        insert into user
+        INSERT INTO USER_INFO
         <trim prefix="(" suffix=")" suffixOverrides=",">
             id,
-            <if test="username != null">
-                username,
+            <if test="userName != null">
+                USER_NAME,
             </if>
             <if test="password != null">
-                password,
+                PASSWORD,
             </if>
             <if test="name != null">
-                name,
+                NAME ,
             </if>
             <if test="sex != null">
-                sex,
+                SEX,
             </if>
             <if test="status != null">
-                status,
+                STATUS,
             </if>
             <if test="orgid != null">
-                orgid,
+                ORG_ID,
             </if>
             <if test="email != null">
-                email,
+                EMAIL,
             </if>
             <if test="idcard != null">
-                idcard,
+                ID_CARD,
             </if>
             <if test="isAdmin != null">
-                is_admin,
+                IS_ADMIN,
             </if>
             <if test="mobile != null">
-                mobile,
+                MOBILE,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             #{id,jdbcType=VARCHAR},
-            <if test="username != null">
-                #{username,jdbcType=VARCHAR},
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
             </if>
             <if test="password != null">
                 #{password,jdbcType=VARCHAR},
@@ -82,13 +82,13 @@
             <if test="status != null">
                 #{status,jdbcType=VARCHAR},
             </if>
-            <if test="orgid != null">
-                #{orgid,jdbcType=VARCHAR},
+            <if test="orgId != null">
+                #{orgId,jdbcType=VARCHAR},
             </if>
             <if test="email != null">
                 #{email,jdbcType=VARCHAR},
             </if>
-            <if test="idcard != null">
+            <if test="idCard != null">
                 #{idcard,jdbcType=VARCHAR},
             </if>
             <if test="isAdmin != null">
@@ -100,30 +100,30 @@
         </trim>
     </insert>
     <update id="updateUserById" parameterType="com.cloud.mall.usermicriservice.model.User">
-        update user set
-        username = #{username,jdbcType=VARCHAR},
-        password = #{password,jdbcType=VARCHAR},
-        name = #{name,jdbcType=VARCHAR},
-        sex = #{sex,jdbcType=VARCHAR},
-        status = #{status,jdbcType=VARCHAR},
-        orgid = #{orgid,jdbcType=VARCHAR},
+        UPDATE USER_INFO SET
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+        PASSWORD = #{password,jdbcType=VARCHAR},
+        NAME = #{name,jdbcType=VARCHAR},
+        SEX = #{sex,jdbcType=VARCHAR},
+        STATUS = #{status,jdbcType=VARCHAR},
+        ORG_ID = #{orgId,jdbcType=VARCHAR},
         email = #{email,jdbcType=VARCHAR},
-        idcard = #{idcard,jdbcType=VARCHAR},
-        is_admin = #{isAdmin,jdbcType=VARCHAR},
-        mobile = #{mobile,jdbcType=VARCHAR},
-        login_token = #{loginToken,jdbcType=VARCHAR}
-        where id = #{id,jdbcType=VARCHAR}
+        ID_CARD = #{idCard,jdbcType=VARCHAR},
+        IS_ADMIN = #{isAdmin,jdbcType=VARCHAR},
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+        LOGIN_TOKEN = #{loginToken,jdbcType=VARCHAR}
+        WHERE id = #{id,jdbcType=VARCHAR}
     </update>
     <select id="getUserListByPage" parameterType="com.cloud.mall.usermicriservice.model.User" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" /> from user where 1 = 1
-        <if test="username != null and username != ''">
-            and username = #{username,jdbcType=VARCHAR}
+        SELECT <include refid="Base_Column_List" /> FROM USER_INFO WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND USER_NAME = #{userName,jdbcType=VARCHAR}
         </if>
         <if test="password != null and password != ''">
-            and password = #{password,jdbcType=VARCHAR}
+            AND PASSWORD = #{password,jdbcType=VARCHAR}
         </if>
         <if test="name != null and name != ''">
-            and name = #{name,jdbcType=VARCHAR}
+            AND NAME = #{name,jdbcType=VARCHAR}
         </if>
     </select>
 </mapper>

@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
         String realPassword = DigestUtils.sha256Hex(new String(passwordByte));
         //查询用户信息
         User param = new User();
-        param.setUsername(userName);
+        param.setUserName(userName);
         User currentUser = this.userDao.getUserInfo(param);
         if(EmptyChecker.isEmpty(currentUser)){
             return new BaseRespDTO(ResultCode.USER_NAME_OR_PASSWORD_ERROR);

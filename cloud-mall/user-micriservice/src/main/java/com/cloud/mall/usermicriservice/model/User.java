@@ -15,7 +15,7 @@ public class User implements Serializable {
      *
      * user.username
      */
-    private String username;
+    private String userName;
 
     /**
      *
@@ -45,7 +45,7 @@ public class User implements Serializable {
      * 部门ID
      * user.orgid
      */
-    private String orgid;
+    private String orgId;
 
     /**
      *
@@ -57,7 +57,7 @@ public class User implements Serializable {
      * 身份证号
      * user.idcard
      */
-    private String idcard;
+    private String idCard;
 
     /**
      * 是否是管理员
@@ -76,14 +76,6 @@ public class User implements Serializable {
      */
     private String loginToken;
 
-    public String getLoginToken() {
-        return loginToken;
-    }
-
-    public void setLoginToken(String loginToken) {
-        this.loginToken = loginToken;
-    }
-
     public String getId() {
         return id;
     }
@@ -92,12 +84,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -132,12 +124,12 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public String getOrgid() {
-        return orgid;
+    public String getOrgId() {
+        return orgId;
     }
 
-    public void setOrgid(String orgid) {
-        this.orgid = orgid;
+    public void setOrgId(String orgId) {
+        this.orgId = orgId;
     }
 
     public String getEmail() {
@@ -148,12 +140,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getIdcard() {
-        return idcard;
+    public String getIdCard() {
+        return idCard;
     }
 
-    public void setIdcard(String idcard) {
-        this.idcard = idcard;
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 
     public String getIsAdmin() {
@@ -172,20 +164,11 @@ public class User implements Serializable {
         this.mobile = mobile;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", sex='" + sex + '\'' +
-                ", status='" + status + '\'' +
-                ", orgid='" + orgid + '\'' +
-                ", email='" + email + '\'' +
-                ", idcard='" + idcard + '\'' +
-                ", isAdmin='" + isAdmin + '\'' +
-                ", mobile='" + mobile + '\'' +
-                '}';
+    public String getLoginToken() {
+        return loginToken;
+    }
+
+    public void setLoginToken(String loginToken) {
+        this.loginToken = loginToken;
     }
 }
