@@ -3,7 +3,6 @@ package com.cloud.mall.usermicriservice.service;
 import com.cloud.mall.usermicriservice.UserMicriserviceApplicationTests;
 import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
 import com.cloud.mall.usermicriservice.dto.UserSearchRespDTO;
-import com.cloud.mall.usermicriservice.model.UserVO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

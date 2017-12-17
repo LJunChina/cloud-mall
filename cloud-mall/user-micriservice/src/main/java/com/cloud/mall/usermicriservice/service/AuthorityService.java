@@ -3,6 +3,7 @@ package com.cloud.mall.usermicriservice.service;
 import com.cloud.mall.usermicriservice.dto.AuthorityReqDTO;
 import com.cloud.mall.usermicriservice.dto.AuthorityRespDTO;
 import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
+import com.cloud.mall.usermicriservice.dto.MenuRespDTO;
 
 /**
  * Authority
@@ -22,5 +23,5 @@ public interface AuthorityService {
      * @param appName 系统名称
      * @return
      */
-    AuthorityRespDTO getAllMenus(String appName);
+    MenuRespDTO getAllMenus(String appName);
 }

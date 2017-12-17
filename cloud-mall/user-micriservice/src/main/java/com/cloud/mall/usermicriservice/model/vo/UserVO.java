@@ -1,4 +1,6 @@
-package com.cloud.mall.usermicriservice.model;
+package com.cloud.mall.usermicriservice.model.vo;
+
+import com.cloud.mall.usermicriservice.model.User;
 
 /**
  * 用户VO

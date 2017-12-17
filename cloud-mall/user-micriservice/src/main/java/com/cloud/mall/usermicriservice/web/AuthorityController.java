@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cloud.mall.usermicriservice.dto.AuthorityReqDTO;
 import com.cloud.mall.usermicriservice.dto.AuthorityRespDTO;
 import com.cloud.mall.usermicriservice.dto.BaseRespDTO;
+import com.cloud.mall.usermicriservice.dto.MenuRespDTO;
 import com.cloud.mall.usermicriservice.enums.ResultCode;
 import com.cloud.mall.usermicriservice.service.AuthorityService;
 import com.cloud.mall.usermicriservice.utils.EmptyChecker;
@@ -62,7 +63,7 @@ public class AuthorityController {
             return new BaseRespDTO(ResultCode.PARAMS_NOT_FOUND).toString();
         }
         try {
-            AuthorityRespDTO respDTO = this.authorityService.getAllMenus(appName);
+            MenuRespDTO respDTO = this.authorityService.getAllMenus(appName);
             String result = respDTO.toString();
             logger.info("result of the getAllMenus is :{}",result);
             return result;

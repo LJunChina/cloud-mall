@@ -1,7 +1,7 @@
 package com.cloud.mall.usermicriservice.dto;
 
 
-import com.cloud.mall.usermicriservice.model.UserVO;
+import com.cloud.mall.usermicriservice.model.vo.UserVO;
 
 
 /**

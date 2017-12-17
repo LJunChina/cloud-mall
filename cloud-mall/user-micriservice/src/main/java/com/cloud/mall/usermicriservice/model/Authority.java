@@ -50,6 +50,16 @@ public class Authority implements Serializable {
 
     private String appName;
 
+    private Integer deep;
+
+    public Integer getDeep() {
+        return deep;
+    }
+
+    public void setDeep(Integer deep) {
+        this.deep = deep;
+    }
+
     public String getId() {
         return Id;
     }
