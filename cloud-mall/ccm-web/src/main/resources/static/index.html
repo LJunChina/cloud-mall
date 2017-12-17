@@ -125,12 +125,34 @@
 <script data-pace-options='{ "ajax": false }' src="libs/pacejs/pace.js"></script>
 <script src="dist/main.js"></script>
 <script type="application/javascript">
-    $('.ui.menu a.item').on('click', function () {
-        $(this)
-            .addClass('active')
-            .siblings()
-            .removeClass('active');
-    })
+    $(function () {
+        $('.ui.menu a.item').on('click', function () {
+            $(this)
+                .addClass('active')
+                .siblings()
+                .removeClass('active');
+        });
+        $.getJSON("/auth/get-all-menus",function (data) {
+            if(data.code === '0000'){
+                console.log(data);
+                var resultData = data.resultData;
+                var $item = $(".ui.accordion.inverted");
+                $.each(resultData,function () {
+                    $item.append('<div class="title item">\n' +
+                        '                <i class="ion-speedometer titleIcon icon"></i> '+this.item.name+' <i class="dropdown icon"></i>\n' +
+                        '            </div>');
+                    if(this.child){
+                        $.each(this.child,function () {
+                            $item.append('<div class="content">\n' +
+                                '                <a class="item" href="javascript:;">'+this.name+'</a>\n' +
+                                '            </div>');
+                        });
+                    }
+                });
+            }
+        });
+    });
+
 </script>
 </body>
 </html>
