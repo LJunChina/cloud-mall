@@ -2,42 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloud.mall.usermicriservice.dao.IAuthorityDao">
     <resultMap id="BaseResultMap" type="com.cloud.mall.usermicriservice.model.Authority">
-        <id column="id" jdbcType="BIGINT" property="Id" />
-        <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
-        <result column="sort_num" jdbcType="INTEGER" property="sortNum" />
-        <result column="style" jdbcType="VARCHAR" property="style" />
-        <result column="icon" jdbcType="VARCHAR" property="icon" />
-        <result column="available" jdbcType="VARCHAR" property="available" />
-        <result column="app_name" jdbcType="VARCHAR" property="appName"/>
+        <id column="ID" jdbcType="BIGINT" property="Id" />
+        <result column="NAME" jdbcType="VARCHAR" property="name" />
+        <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+        <result column="SORT_NUMBER" jdbcType="INTEGER" property="sortNum" />
+        <result column="STYLE" jdbcType="VARCHAR" property="style" />
+        <result column="ICON" jdbcType="VARCHAR" property="icon" />
+        <result column="AVAILABLE" jdbcType="VARCHAR" property="available" />
+        <result column="APP_NAME" jdbcType="VARCHAR" property="appName"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,name,parent_id,sort_num,style,icon,available,app_name
+        ID,NAME,PARENT_ID,SORT_NUMBER,STYLE,ICON,AVAILABLE,APP_NAME
     </sql>
     <insert id="addAuthority" parameterType="com.cloud.mall.usermicriservice.dto.AuthorityReqDTO">
-        insert into authority
+        INSERT INTO authority
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            id,
+            ID,
             <if test="name != null">
-                name,
+                NAME,
             </if>
             <if test="parentId != null">
-                parent_id,
+                PARENT_ID,
             </if>
             <if test="sortNum != null">
-                sort_num,
+                SORT_NUMBER,
             </if>
             <if test="style != null">
-                style,
+                STYLE,
             </if>
             <if test="icon != null">
-                icon,
+                ICON,
             </if>
             <if test="available != null">
-                available,
+                AVAILABLE,
             </if>
             <if test="appName != null">
-                app_name,
+                APP_NAME,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -71,7 +71,7 @@
         FROM authority
         WHERE 1=1
         <if test="appName != null">
-            AND app_name = #{appName,jdbcType=VARCHAR}
+            AND APP_NAME = #{appName,jdbcType=VARCHAR}
         </if>
     </select>
 </mapper>
