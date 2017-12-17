@@ -10,9 +10,10 @@
         <result column="ICON" jdbcType="VARCHAR" property="icon" />
         <result column="AVAILABLE" jdbcType="VARCHAR" property="available" />
         <result column="APP_NAME" jdbcType="VARCHAR" property="appName"/>
+        <result column="DEEP" jdbcType="NUMERIC" property="deep"/>
     </resultMap>
     <sql id="Base_Column_List">
-        ID,NAME,PARENT_ID,SORT_NUMBER,STYLE,ICON,AVAILABLE,APP_NAME
+        ID,NAME,PARENT_ID,SORT_NUMBER,STYLE,ICON,AVAILABLE,APP_NAME,DEEP
     </sql>
     <insert id="addAuthority" parameterType="com.cloud.mall.usermicriservice.dto.AuthorityReqDTO">
         INSERT INTO authority

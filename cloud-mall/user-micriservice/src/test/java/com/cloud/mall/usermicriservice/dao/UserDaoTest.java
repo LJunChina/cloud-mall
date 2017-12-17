@@ -38,7 +38,7 @@ public class UserDaoTest extends UserMicriserviceApplicationTests {
         User user = new User();
         user.setId("342dc4fd-ddeb-42ad-87b8-a53ab1ab45ea");
         user = this.userDao.getUserInfo(user);
-        user.setUsername("JUnit");
+        user.setUserName("JUnit");
         user.setEmail("3131@qq.com");
         Assert.assertEquals(1,this.userDao.updateUserById(user));
     }

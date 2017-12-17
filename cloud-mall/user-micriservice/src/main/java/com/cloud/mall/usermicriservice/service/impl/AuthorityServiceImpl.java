@@ -68,10 +68,13 @@ public class AuthorityServiceImpl implements AuthorityService {
             AuthorityVO authorityVO = new AuthorityVO();
             authorityVO.setItem(i);
             //过滤出child
-            authorityVO.setChild(items.stream()
-                    .filter(s -> s.getParentId().equals(i.getId()))
-                    .collect(Collectors.toList()));
-            resultData.add(authorityVO);
+            //只添加顶级菜单
+            if(i.getDeep().equals(0)){
+                authorityVO.setChild(items.stream()
+                        .filter(s -> s.getParentId().equals(i.getId()))
+                        .collect(Collectors.toList()));
+                resultData.add(authorityVO);
+            }
         });
         respDTO.setResultData(resultData);
     }
