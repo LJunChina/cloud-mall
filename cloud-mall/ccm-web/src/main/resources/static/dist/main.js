@@ -176,7 +176,8 @@ function colorize() {
     var d;
     var z;
     var l;
-
+    Cookies.set('headerColor', 'inverted yellow');
+    Cookies.set('sidebarColor', 'inverted darkpurpleli');
     if (Cookies.get('sidebarColor') != undefined) {
         if (b == null) {
             b = $(".sidebar").attr("data-color");
