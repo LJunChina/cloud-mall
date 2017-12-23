@@ -1,5 +1,6 @@
 package com.cloud.mall.ccmweb.utils;
 
+
 /**
  * 各服务接口
  *
@@ -28,4 +29,8 @@ public final class Constant {
     public static final String GET_USER_IS_LOGIN = USER_SERVICE + "/is-login/{tokenId}";
     /**获取系统菜单*/
     public static final String GET_ALL_MENUS = USER_SERVICE + "/auth/get-all-menus/{appName}";
+    /**业务系统分页查询*/
+    public static final String GET_SYSTEM_INFO_BY_NAME = USER_SERVICE + "/system-info/get-system-info";
+    /**保存业务系统信息接口*/
+    public static final String SAVE_SYSTEM_INFO = USER_SERVICE + "/system-info/save-system-info";
 }

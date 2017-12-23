@@ -105,10 +105,8 @@
         <!--navbar-->
         <!--maincontent-->
         <div class="mainWrap navslide">
-            <div class="ui equal width left aligned padded grid stackable">
+            <div class="ui equal width left aligned padded grid stackable" id="content">
                 <!--内容区-->
-
-
             </div>
         </div>
         <!--maincontent-->
@@ -131,6 +129,8 @@
                 .addClass('active')
                 .siblings()
                 .removeClass('active');
+            var $content = $("#content");
+            $content.load('system_info.html');
         });
         $.getJSON("/auth/get-all-menus",function (data) {
             if(data.code === '0000'){
@@ -149,6 +149,8 @@
                         });
                     }
                 });
+            }else {
+                self.location = 'login.html';
             }
         });
     });
