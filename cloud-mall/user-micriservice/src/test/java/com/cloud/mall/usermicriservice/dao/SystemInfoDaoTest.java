@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.UUID;
+
 import static org.junit.Assert.*;
 
 public class SystemInfoDaoTest extends UserMicriserviceApplicationTests {
@@ -19,6 +21,17 @@ public class SystemInfoDaoTest extends UserMicriserviceApplicationTests {
                 .startPage(1,10)
                 .doSelectPageInfo(() -> this.systemInfoDao.getSystemInfoByName("test"));
         Assert.assertEquals(1L,result.getTotal());
+    }
+
+    @Test
+    public void saveSystemInfoTest(){
+        SystemInfo systemInfo = new SystemInfo();
+        systemInfo.setId(UUID.randomUUID().toString());
+        systemInfo.setSystemChn("单元测试");
+        systemInfo.setSystemContext("/junit");
+        systemInfo.setSystemHost("127.0.0.1");
+        systemInfo.setSystemName("junit");
+        Assert.assertEquals(1,this.systemInfoDao.saveSystemInfo(systemInfo));
     }
 
 }

@@ -15,4 +15,11 @@ public interface ISystemInfoDao {
      * @return
      */
     List<SystemInfo> getSystemInfoByName(@Param(value = "name") String systemName);
+
+    /**
+     * 保存系统信息
+     * @param systemInfo
+     * @return
+     */
+    int saveSystemInfo(SystemInfo systemInfo);
 }

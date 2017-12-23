@@ -18,4 +18,11 @@
             AND INSTR(SYSTEM_NAME,#{name,jdbcType=VARCHAR}) > 0
         </if>
     </select>
+
+    <insert id="saveSystemInfo" parameterType="com.cloud.mall.usermicriservice.model.SystemInfo">
+        INSERT INTO system_info VALUES (
+        #{id,jdbcType=VARCHAR},
+        #{systemName,jdbcType=VARCHAR},
+        #{systemChn,jdbcType=VARCHAR},#{systemHost,jdbcType=VARCHAR},#{systemContext,jdbcType=VARCHAR})
+    </insert>
 </mapper>
