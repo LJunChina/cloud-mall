@@ -1,6 +1,7 @@
 package com.cloud.mall.ccmweb.config;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.mall.ccmweb.dto.BaseRespDTO;
 import com.cloud.mall.ccmweb.exception.UserAuthException;
 import com.cloud.mall.ccmweb.model.LoginUser;
 import com.cloud.mall.ccmweb.model.TokenInfo;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.stream.Stream;
 
 /**
@@ -35,23 +37,25 @@ public class UserAuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        String header = request.getHeader("X-Requested-With");
+        response.setCharacterEncoding("UTF-8");
+        String jsonResult = new BaseRespDTO(ResultCode.LOGIN_EFFICACY).toString();
+        boolean isAjax;
+        isAjax = "XMLHttpRequest".equals(header);
         Cookie[] cookies = request.getCookies();
         if(EmptyChecker.isEmpty(cookies)){
-            logger.info("user login already disabled");
-            response.sendRedirect("/login.html");
+            redirect(response,isAjax,jsonResult);
             return false;
         }
         String tokenId;
         Cookie tokenCookie = Stream.of(cookies).filter(c -> "tokenId".equals(c.getName())).findFirst().orElse(null);
         if(EmptyChecker.isEmpty(tokenCookie)){
-            logger.info("user login already disabled");
-            response.sendRedirect("/login.html");
+            redirect(response,isAjax,jsonResult);
             return false;
         }
         tokenId = tokenCookie.getValue();
         if(EmptyChecker.isEmpty(tokenId)){
-            logger.info("user login already disabled");
-            response.sendRedirect("/login.html");
+            redirect(response,isAjax,jsonResult);
             return false;
         }
         //查询token是否有效
@@ -68,9 +72,8 @@ public class UserAuthInterceptor implements HandlerInterceptor {
             JSONObject userObject = JSONObject.parseObject(userStr);
             String tokenStr = userObject.getJSONObject("data").getString("loginToken");
             if(!tokenStr.equals(tokenId)){
-                logger.warn("user login already disabled ");
-                response.sendRedirect("/login.html");
-                throw new UserAuthException("登录已失效");
+                redirect(response,isAjax,jsonResult);
+                return false;
             }
             LoginUserContext.addLoginUserContext(loginUser);
             return true;
@@ -86,5 +89,21 @@ public class UserAuthInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
+    }
+
+    /**
+     * 检查token是否有效
+     * @param response
+     * @param isAjax
+     * @param jsonResult
+     * @return
+     */
+    private void redirect(HttpServletResponse response,boolean isAjax,String jsonResult) throws IOException{
+        logger.info("user login already disabled");
+        if(isAjax){
+            response.getWriter().write(jsonResult);
+            return;
+        }
+        response.sendRedirect("/login.html");
     }
 }
