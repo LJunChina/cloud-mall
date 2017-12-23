@@ -19,7 +19,7 @@
         ID,USER_NAME,PASSWORD,NAME,SEX,STATUS,ORG_ID,EMAIL,ID_CARD,IS_ADMIN,MOBILE,LOGIN_TOKEN
     </sql>
     <select id="getUserInfo" parameterType="com.cloud.mall.usermicriservice.model.User" resultMap="BaseResultMap">
-        SELECT <include refid="Base_Column_List" /> FROM USER_INFO WHERE 1 = 1
+        SELECT <include refid="Base_Column_List" /> FROM user_info WHERE 1 = 1
         <if test="userName != null and userName != ''">
             AND USER_NAME = #{userName,jdbcType=VARCHAR}
         </if>
@@ -31,7 +31,7 @@
         </if>
     </select>
     <insert id="saveUser" parameterType="com.cloud.mall.usermicriservice.model.User">
-        INSERT INTO USER_INFO
+        INSERT INTO user_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
             id,
             <if test="userName != null">
@@ -100,7 +100,7 @@
         </trim>
     </insert>
     <update id="updateUserById" parameterType="com.cloud.mall.usermicriservice.model.User">
-        UPDATE USER_INFO SET
+        UPDATE user_info SET
         USER_NAME = #{userName,jdbcType=VARCHAR},
         PASSWORD = #{password,jdbcType=VARCHAR},
         NAME = #{name,jdbcType=VARCHAR},
@@ -115,7 +115,7 @@
         WHERE id = #{id,jdbcType=VARCHAR}
     </update>
     <select id="getUserListByPage" parameterType="com.cloud.mall.usermicriservice.model.User" resultMap="BaseResultMap">
-        SELECT <include refid="Base_Column_List" /> FROM USER_INFO WHERE 1 = 1
+        SELECT <include refid="Base_Column_List" /> FROM user_info WHERE 1 = 1
         <if test="userName != null and userName != ''">
             AND USER_NAME = #{userName,jdbcType=VARCHAR}
         </if>
