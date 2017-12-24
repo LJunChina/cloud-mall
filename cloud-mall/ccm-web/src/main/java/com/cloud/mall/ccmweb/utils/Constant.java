@@ -30,7 +30,7 @@ public final class Constant {
     /**获取系统菜单*/
     public static final String GET_ALL_MENUS = USER_SERVICE + "/auth/get-all-menus/{appName}";
     /**业务系统分页查询*/
-    public static final String GET_SYSTEM_INFO_BY_NAME = USER_SERVICE + "/system-info/get-system-info";
+    public static final String GET_SYSTEM_INFO_BY_NAME = USER_SERVICE + "/system-info/get-system-info?systemName={systemName}&pageSize={pageSize}&pageIndex={pageIndex}";
     /**保存业务系统信息接口*/
     public static final String SAVE_SYSTEM_INFO = USER_SERVICE + "/system-info/save-system-info";
 }

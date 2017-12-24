@@ -169,8 +169,11 @@ function returnData(sSource, aDataSet, fnCallback) {
                 var pageSize,pageIndex = 1;
                 $.each(aDataSet,function () {
                     if(this.name && this.name === 'length'){
+                        console.log("length:"+ this.value)
                         pageSize = this.value;
                     }
+                });
+                $.each(aDataSet,function () {
                     if(this.name && this.name === 'start'){
                         var start = this.value;
                         if(start === 0){
@@ -186,32 +189,36 @@ function returnData(sSource, aDataSet, fnCallback) {
             }
         },
         "success" : function(resp){
-            console.log(resp)
-            fnCallback({
-                "recordsTotal":resp.data.pages,
-                "recordsFiltered":resp.data.total,
-                "data":resp.data.list
-            });
+            if(resp.code === '0000'){
+                fnCallback({
+                    "recordsTotal":resp.data.pages,
+                    "recordsFiltered":resp.data.total,
+                    "data":resp.data.list
+                });
+            }else {
+                self.location = "login.html";
+            }
+
+        },
+        "error":function () {
+            self.location = "login.html";
         }
     });
 }
 $(document).ready(function () {
     var option = {
         "pagingType": "full_numbers_icon",
-        order: [1, 'desc'],
-        responsive: true,
         "serverSide": true,
+        "ordering": false,
         "fnServerData":returnData,
         "searching": false,
-        "scrollY": "200px",
-        "scrollCollapse": "true",
         "oLanguage": { //国际化配置
             "sProcessing": "正在获取数据，请稍后...",
             "sLengthMenu": "显示 _MENU_ 条",
             "sZeroRecords": "没有您要搜索的内容",
             "sInfo": "从 _START_ 到  _END_ 条记录 总记录数为 _TOTAL_ 条",
             "sInfoEmpty": "记录数为0",
-            "sInfoFiltered": "(全部记录数 _MAX_ 条)",
+            "sInfoFiltered": "(总页数 _MAX_ 页)",
             "sInfoPostFix": "",
             "sSearch": "搜索",
             "sUrl": "",

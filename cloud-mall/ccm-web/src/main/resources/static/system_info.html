@@ -1,10 +1,11 @@
+<link rel="stylesheet" href="libs/sweetalert2/sweetalert2.min.css">
 <div class="row">
     <div class="sixteen wide column">
         <div class="ui segments">
             <div class="ui segment">
-                <h5 class="ui header" style="display: inline-block">
+                <h4 class="ui header" style="display: inline-block">
                     业务系统管理
-                </h5>
+                </h4>
                 <button class="ui basic button modaleffect" style="display: inline-block;margin-left: 10px" data-value="horizontal flip">
                     <i class="icon plus"></i>
                     新增业务系统
@@ -64,6 +65,7 @@
 
 <script src="libs/datatable/jquery.dataTables.js"></script>
 <script src="dist/custom-datatable.js"></script>
+<script src="libs/sweetalert2/sweetalert2.min.js"></script>
 <script type="application/javascript">
     $(function () {
         var $submit = $("#submit");
@@ -105,7 +107,18 @@
             $.post("/system-info/save-system-info",formData,function (data) {
                 var resultData = JSON.parse(data);
                 if(resultData.code === '0000'){
-                    $(".ui.modal.standard").modal('hide');
+                    swal({
+                        text: "处理成功！",
+                        type: "success",
+                        confirmButtonText: '确认',
+                        confirmButtonColor: '#4cd964'
+                    }).then(function (e) {
+                        if(e){
+                            $(".ui.modal.standard").modal('hide');
+                            $("#data_table").dataTable().api().ajax.reload();
+                        }
+                    });
+
                 }
             });
         }
