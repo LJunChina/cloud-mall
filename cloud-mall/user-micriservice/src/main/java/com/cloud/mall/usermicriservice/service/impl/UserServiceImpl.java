@@ -18,9 +18,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
+import java.net.URL;
 import java.security.interfaces.RSAPrivateKey;
 
 @Service(value = "userService")
@@ -43,8 +43,11 @@ public class UserServiceImpl implements UserService {
             return new BaseRespDTO(ResultCode.PASSWORD_NOT_ALLOW_EMPTY);
         }
         //解密
-        ClassPathResource resource = new ClassPathResource("/privateKey.keystore");
-        String privateKeyPath = resource.getFile().getPath();
+        URL url = this.getClass().getClassLoader().getResource("publicKey.keystore");
+        if(EmptyChecker.isEmpty(url)){
+            return new BaseRespDTO(ResultCode.FAIL);
+        }
+        String privateKeyPath = url.getPath();
         String privateKeyStr = RSAEncrypt.loadKeyByFile(privateKeyPath);
         RSAPrivateKey privateKey = RSAEncrypt.loadPrivateKeyByStr(privateKeyStr);
         byte[] passwordByte = RSAEncrypt.decrypt(privateKey,Base64.decode(password));
@@ -81,8 +84,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public BaseRespDTO getPublicKey() throws Exception {
         BaseRespDTO baseRespDTO = new BaseRespDTO();
-        ClassPathResource resource = new ClassPathResource("/publicKey.keystore");
-        String keyPath = resource.getFile().getPath();
+        URL url = this.getClass().getClassLoader().getResource("publicKey.keystore");
+        if(EmptyChecker.isEmpty(url)){
+            return new BaseRespDTO(ResultCode.FAIL);
+        }
+        String keyPath = url.getPath();
         baseRespDTO.setData(RSAEncrypt.loadKeyByFile(keyPath));
         return baseRespDTO;
     }
