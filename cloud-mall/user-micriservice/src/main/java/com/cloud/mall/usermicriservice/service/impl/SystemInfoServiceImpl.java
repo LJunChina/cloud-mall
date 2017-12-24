@@ -33,9 +33,6 @@ public class SystemInfoServiceImpl implements SystemInfoService {
      */
     @Override
     public BaseRespDTO getSystemInfoByName(String systemName, int pageIndex, int pageSize) {
-        if(EmptyChecker.isEmpty(systemName)){
-            return new BaseRespDTO(ResultCode.PARAMS_NOT_FOUND);
-        }
         PageInfo<SystemInfo> systemInfoPageInfo = PageHelper.startPage(pageIndex,pageSize)
                 .doSelectPageInfo(() -> this.systemInfoDao.getSystemInfoByName(systemName));
         BaseRespDTO baseRespDTO = new BaseRespDTO();

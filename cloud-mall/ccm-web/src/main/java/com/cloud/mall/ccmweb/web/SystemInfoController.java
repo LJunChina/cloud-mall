@@ -8,6 +8,9 @@ import com.cloud.mall.ccmweb.utils.ControllerUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -63,7 +66,9 @@ public class SystemInfoController {
         String param = JSONObject.toJSONString(params);
         logger.info("params of saveSystemInfo :{}",param);
         try {
-            String result = this.restTemplate.postForEntity(Constant.SAVE_SYSTEM_INFO,param,String.class).getBody();
+            MultiValueMap<String,String> requestEntity = new LinkedMultiValueMap<>();
+            requestEntity.setAll(params);
+            String result = this.restTemplate.postForEntity(Constant.SAVE_SYSTEM_INFO,requestEntity,String.class).getBody();
             logger.info("result of the saveSystemInfo is :{}",result);
             return result;
         }catch (Exception e){

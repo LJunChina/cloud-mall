@@ -148,11 +148,63 @@
     }
 })(window, document);
 
+
+function returnData(sSource, aDataSet, fnCallback) {
+    $.ajax({
+        "dataType" : 'json',
+        "contentType": "application/json; charset=utf-8",
+        "type" : "get",
+        "url" : "/system-info/get-system-info",
+        "data" :{
+            "pageSize": function () {
+                var pageSize = 10;
+                $.each(aDataSet,function () {
+                   if(this.name && this.name === 'length'){
+                       pageSize = this.value;
+                   }
+                });
+                return pageSize;
+            },
+            "pageIndex":function () {
+                var pageSize,pageIndex = 1;
+                $.each(aDataSet,function () {
+                    if(this.name && this.name === 'length'){
+                        pageSize = this.value;
+                    }
+                    if(this.name && this.name === 'start'){
+                        var start = this.value;
+                        if(start === 0){
+                            pageIndex = 1;
+                        }else {
+                            if(pageSize){
+                                pageIndex = start/pageSize + 1;
+                            }
+                        }
+                    }
+                });
+                return pageIndex;
+            }
+        },
+        "success" : function(resp){
+            console.log(resp)
+            fnCallback({
+                "recordsTotal":resp.data.pages,
+                "recordsFiltered":resp.data.total,
+                "data":resp.data.list
+            });
+        }
+    });
+}
 $(document).ready(function () {
     var option = {
         "pagingType": "full_numbers_icon",
         order: [1, 'desc'],
         responsive: true,
+        "serverSide": true,
+        "fnServerData":returnData,
+        "searching": false,
+        "scrollY": "200px",
+        "scrollCollapse": "true",
         "oLanguage": { //国际化配置
             "sProcessing": "正在获取数据，请稍后...",
             "sLengthMenu": "显示 _MENU_ 条",
@@ -172,41 +224,27 @@ $(document).ready(function () {
         },
         "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
         "aoColumns" : [{
-            "mDataProp" : "USERID",
+            "mDataProp" : "systemName",
             "sDefaultContent" : "", //此列默认值为""，以防数据中没有此值，DataTables加载数据的时候报错
-            "bVisible" : false //此列不显示
+            "sTitle" : "业务系统名称",
+            "sClass" : "center"
         }, {
-            "mDataProp" : "USERNAME",
-            "sTitle" : "用户名",
+            "mDataProp" : "systemChn",
+            "sTitle" : "业务系统中文名称",
             "sDefaultContent" : "",
             "sClass" : "center"
         }, {
-            "mDataProp" : "EMAIL",
-            "sTitle" : "电子邮箱",
+            "mDataProp" : "systemContext",
+            "sTitle" : "系统context",
             "sDefaultContent" : "",
             "sClass" : "center"
         }, {
-            "mDataProp" : "MOBILE",
-            "sTitle" : "手机",
-            "sDefaultContent" : "",
-            "sClass" : "center"
-        }, {
-            "mDataProp" : "PHONE",
-            "sTitle" : "座机",
-            "sDefaultContent" : "",
-            "sClass" : "center"
-        }, {
-            "mDataProp" : "NAME",
-            "sTitle" : "姓名",
-            "sDefaultContent" : "",
-            "sClass" : "center"
-        }, {
-            "mDataProp" : "ISADMIN",
-            "sTitle" : "用户权限",
+            "mDataProp" : "systemHost",
+            "sTitle" : "系统host",
             "sDefaultContent" : "",
             "sClass" : "center"
         }]
     };
-    var dtable = $('.table').DataTable(option);
+    $('.table').DataTable(option);
 });
 

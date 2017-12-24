@@ -59,7 +59,8 @@ public class SystemInfoController {
     public String saveSystemInfo(@RequestParam(value = "systemName",defaultValue = "")String systemName,
                                  @RequestParam(value = "systemChn",defaultValue = "")String systemChn,
                                  @RequestParam(value = "systemHost",defaultValue = "")String systemHost,
-                                 @RequestParam(value = "systemContext",defaultValue = "")String systemContext){
+                                 @RequestParam(value = "systemContext",defaultValue = "")String systemContext,
+                                 @RequestBody String body){
         logger.info("params of saveSystemInfo,systemName:{},systemChn:{},systemHost:{},systemContext:{}",systemName,systemChn,systemHost,systemContext);
         try {
             BaseRespDTO baseRespDTO = this.systemInfoService.saveSystemInfo(systemName,systemChn,systemHost,systemContext);

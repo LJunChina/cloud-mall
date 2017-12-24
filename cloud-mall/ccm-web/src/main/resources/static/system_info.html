@@ -2,9 +2,13 @@
     <div class="sixteen wide column">
         <div class="ui segments">
             <div class="ui segment">
-                <h5 class="ui header">
+                <h5 class="ui header" style="display: inline-block">
                     业务系统管理
                 </h5>
+                <button class="ui basic button modaleffect" style="display: inline-block;margin-left: 10px" data-value="horizontal flip">
+                    <i class="icon plus"></i>
+                    新增业务系统
+                </button>
             </div>
             <div class="ui segment">
                 <table id="data_table" class="ui compact selectable striped celled table tablet stackable" cellspacing="0" width="100%">
@@ -15,46 +19,95 @@
 </div>
 
 
-<!--
-<div class="row">
-    <div class="sixteen wide tablet sixteen wide computer column">
-        <div class="ui segments">
-            <div class="ui segment">
-                <h5 class="ui header">
-                    业务系统管理
-                </h5>
+
+
+<div class="ui standard modal">
+    <div class="header">
+        新增业务系统
+    </div>
+    <div class="row">
+        <div class="sixteen wide tablet sixteen wide computer column">
+            <div class="ui segments">
+                <form class="ui form segment form4" id="system">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>业务系统名称</label>
+                            <input placeholder="系统名称" name="systemName" type="text">
+                        </div>
+                        <div class="field">
+                            <label>业务系统中文名称</label>
+                            <input placeholder="中文名称" name="systemChn" type="text">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>系统HOST</label>
+                        <input placeholder="HOST" name="systemHost" type="text">
+                    </div>
+                    <div class="field">
+                        <label>系统context</label>
+                        <input placeholder="系统context" name="systemContext" type="text">
+                    </div>
+                </form>
             </div>
-            <form class="ui form segment form4">
-                <div class="two fields">
-                    <div class="field">
-                        <label>业务系统名称</label>
-                        <input placeholder="系统名称" name="name" type="text">
-                    </div>
-                    <div class="field">
-                        <label>业务系统英文名称</label>
-                        <input placeholder="英文名称" name="name" type="text">
-                    </div>
-                </div>
-                <div class="field">
-                    <label>系统HOST</label>
-                    <input placeholder="HOST" name="username" type="text">
-                </div>
-                <div class="field">
-                    <label>系统context</label>
-                    <input name="password" type="password">
-                </div>
-                <div class="ui blue submit button">提交</div>
-                <div class="ui reset button">重置</div>
-                <div class="ui clear button">清除</div>
-            </form>
         </div>
     </div>
-</div>-->
+    <div class="actions">
+        <div class="ui black deny button">
+            关闭
+        </div>
+        <div class="ui right labeled icon button" id="submit">
+            提交
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
 
 <script src="libs/datatable/jquery.dataTables.js"></script>
 <script src="dist/custom-datatable.js"></script>
 <script type="application/javascript">
     $(function () {
-        console.log(dtable);
+        var $submit = $("#submit");
+        $(".modaleffect").on("click", function () {
+            var a = $(this).attr("data-value");
+            $(".ui.modal.standard").modal("setting", "transition", a).modal("show");
+        });
+        $submit.on('click',function () {
+            $('#system').submit();
+        });
+        $('#system').form({
+            fields: {
+                systemName: {
+                    identifier  : 'systemName',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : '请输入系统名称'
+                        }
+                    ]
+                },
+                systemHost: {
+                    identifier  : 'systemHost',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : '请输入系统host'
+                        }
+                    ]
+                }
+            },
+            onSuccess:submitForm
+        });
+        $('#system').submit(function(e){
+            return false;
+        });
+        function submitForm() {
+            var formData = $('.ui.form input').serializeArray();
+            $.post("/system-info/save-system-info",formData,function (data) {
+                var resultData = JSON.parse(data);
+                if(resultData.code === '0000'){
+                    $(".ui.modal.standard").modal('hide');
+                }
+            });
+        }
     });
 </script>
