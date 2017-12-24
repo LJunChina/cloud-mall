@@ -22,11 +22,22 @@
         <div class="ui accordion inverted">
 
             <div class="title item">
-                <i class="ion-speedometer titleIcon icon"></i> Dashboard <i class="dropdown icon"></i>
+                <i class="ion-ios-cog titleIcon icon"></i> 系统管理 <i class="dropdown icon"></i>
             </div>
             <div class="content">
+                <a class="item" href="javascript:;" data-url="system_info.html">
+                    业务系统管理
+                </a>
+            </div>
+            <div class="title item">
+                <i class="ion-android-walk titleIcon icon"></i> 权限管理 <i class="dropdown icon"></i>
+            </div>
+            <div class="content">
+                <a class="item" href="javascript:;" data-url="auth/auth_list.html">
+                    菜单权限管理
+                </a>
                 <a class="item" href="javascript:;">
-                    Dashboard v1
+                    操作权限管理
                 </a>
             </div>
 
@@ -129,8 +140,9 @@
                 .addClass('active')
                 .siblings()
                 .removeClass('active');
+            var url = $(this).data("url");
             var $content = $("#content");
-            $content.load('system_info.html');
+            $content.load(url);
         });
         $.getJSON("/auth/get-all-menus",function (data) {
             if(data.code === '0000'){
