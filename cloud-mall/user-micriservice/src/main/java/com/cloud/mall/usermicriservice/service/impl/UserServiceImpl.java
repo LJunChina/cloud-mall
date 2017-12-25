@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
             return new BaseRespDTO(ResultCode.PASSWORD_NOT_ALLOW_EMPTY);
         }
         //解密
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("publicKey.keystore");
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("privateKey.keystore");
         InputStreamReader reader = new InputStreamReader(inputStream);
         String privateKeyStr = RSAEncrypt.loadKeyByFile(reader);
         RSAPrivateKey privateKey = RSAEncrypt.loadPrivateKeyByStr(privateKeyStr);
