@@ -133,14 +133,14 @@ public class RSAEncrypt {
     /**
      * 从文件中加载私钥
      *
-     * @param path
+     * @param reader
      *            私钥文件名
      * @return 是否成功
      * @throws Exception
      */
-    public static String loadKeyByFile(String path) throws Exception {
+    public static String loadKeyByFile(InputStreamReader reader) throws Exception {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(path));
+            BufferedReader br = new BufferedReader(reader);
             String readLine;
             StringBuilder sb = new StringBuilder();
             while ((readLine = br.readLine()) != null) {
